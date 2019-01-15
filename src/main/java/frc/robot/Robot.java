@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.Joystick;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -36,7 +35,7 @@ public class Robot extends TimedRobot {
   private final WPI_TalonSRX rightRear;
   private final DifferentialDrive drive;
 
-  private final Joystick m_stick = new Joystick(1);
+  //public final Joystick mainStick;
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static OI m_oi;
 
@@ -48,10 +47,10 @@ public class Robot extends TimedRobot {
    * used for any initialization code.
    */
   public Robot() {
-    leftFront = new WPI_TalonSRX(1);
-    leftRear = new WPI_TalonSRX(2);
-    rightFront = new WPI_TalonSRX(3);
-    rightRear = new WPI_TalonSRX(4);
+    leftFront = new WPI_TalonSRX(RobotMap.leftFront);
+    leftRear = new WPI_TalonSRX(RobotMap.leftRear);
+    rightFront = new WPI_TalonSRX(RobotMap.rightFront);
+    rightRear = new WPI_TalonSRX(RobotMap.rightRear);
 
     SpeedControllerGroup leftSide = new SpeedControllerGroup(leftFront, leftRear);
     SpeedControllerGroup RightSide = new SpeedControllerGroup(rightFront, rightRear);
@@ -149,7 +148,7 @@ public class Robot extends TimedRobot {
     drive.setSafetyEnabled(false);
     while (isOperatorControl() && isEnabled()) {
       //System.out.println(leftFront.getSpeed());
-      drive.arcadeDrive(-m_stick.getY(), -m_stick.getX());
+      drive.arcadeDrive(-OI.mainStick.getY(), -OI.mainStick.getX());
       Timer.delay(0.005);
     }
   }
