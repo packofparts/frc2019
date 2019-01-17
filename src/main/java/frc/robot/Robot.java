@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -39,6 +41,9 @@ public class Robot extends TimedRobot {
   private final Joystick m_stick = new Joystick(1);
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static OI m_oi;
+  public static final String ENCODER_PREFIX = "Drive/Encoders/";
+
+  private final CameraServer cameraServer;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -48,10 +53,19 @@ public class Robot extends TimedRobot {
    * used for any initialization code.
    */
   public Robot() {
+    cameraServer = CameraServer.getInstance();
+    cameraServer.startAutomaticCapture(0);
+
     leftFront = new WPI_TalonSRX(1);
     leftRear = new WPI_TalonSRX(2);
     rightFront = new WPI_TalonSRX(3);
     rightRear = new WPI_TalonSRX(4);
+
+    leftFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotMap.CTRE_TIMEOUT_INIT);
+    leftFront.setSensorPhase(true);
+
+    rightFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotMap.CTRE_TIMEOUT_INIT);
+    rightFront.setSensorPhase(true);
 
     SpeedControllerGroup leftSide = new SpeedControllerGroup(leftFront, leftRear);
     SpeedControllerGroup RightSide = new SpeedControllerGroup(rightFront, rightRear);
@@ -79,11 +93,6 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
   }
 
-  /**
-   * This function is called once each time the robot enters Disabled mode.
-   * You can use it to reset any subsystem information you want to clear when
-   * the robot is disabled.
-   */
   @Override
   public void disabledInit() {
   }
@@ -148,10 +157,14 @@ public class Robot extends TimedRobot {
     System.out.println("Operator Control Started");
     drive.setSafetyEnabled(false);
     while (isOperatorControl() && isEnabled()) {
+      SmartDashboard.putNumber(ENCODER_PREFIX + "Left/Pos", -leftFront.getSelectedSensorPosition(0));
+      SmartDashboard.putNumber(ENCODER_PREFIX + "Right/Pos", rightFront.getSelectedSensorPosition(0));
+      SmartDashboard.putNumber(ENCODER_PREFIX + "Avg/Pos", (-leftFront.getSelectedSensorPosition(0) + rightFront.getSelectedSensorPosition(0)) / 2);
       //System.out.println(leftFront.getSpeed());
       drive.arcadeDrive(-m_stick.getY(), -m_stick.getX());
       Timer.delay(0.005);
     }
+    
   }
 
   /**
