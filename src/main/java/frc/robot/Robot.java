@@ -15,10 +15,11 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**
@@ -35,14 +36,16 @@ public class Robot extends TimedRobot {
   private final WPI_TalonSRX leftRear;
   private final WPI_TalonSRX rightFront;
   private final WPI_TalonSRX rightRear;
-  private final DifferentialDrive drive;
+  //private final DifferentialDrive drive;
 
   //public final Joystick mainStick;
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static OI m_oi;
+  
   public static final String ENCODER_PREFIX = "Drive/Encoders/";
-
-  private final CameraServer cameraServer;
+  public static DriveSubsystem driver;
+  
+ // private final CameraServer cameraServer;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -52,29 +55,30 @@ public class Robot extends TimedRobot {
    * used for any initialization code.
    */
   public Robot() {
-    cameraServer = CameraServer.getInstance();
-    cameraServer.startAutomaticCapture(0);
-    leftFront = new WPI_TalonSRX(RobotMap.leftFront);
-    leftRear = new WPI_TalonSRX(RobotMap.leftRear);
-    rightFront = new WPI_TalonSRX(RobotMap.rightFront);
-    rightRear = new WPI_TalonSRX(RobotMap.rightRear);
+    //cameraServer = CameraServer.getInstance();
+    //cameraServer.startAutomaticCapture(0);
+    leftFront = DriveSubsystem.leftFront;
+    rightFront = DriveSubsystem.rightFront;
+    leftRear = DriveSubsystem.leftRear;
+    rightRear = DriveSubsystem.rightRear;
+    driver = new DriveSubsystem();
+    //drive = DriveSubsystem.drive;
+    //leftFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotMap.CTRE_TIMEOUT_INIT);
+    //leftFront.setSensorPhase(true);
 
-    leftFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotMap.CTRE_TIMEOUT_INIT);
-    leftFront.setSensorPhase(true);
+    //rightFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotMap.CTRE_TIMEOUT_INIT);
+    //rightFront.setSensorPhase(true);
 
-    rightFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotMap.CTRE_TIMEOUT_INIT);
-    rightFront.setSensorPhase(true);
+    
 
-    SpeedControllerGroup leftSide = new SpeedControllerGroup(leftFront, leftRear);
-    SpeedControllerGroup RightSide = new SpeedControllerGroup(rightFront, rightRear);
-
-    drive = new DifferentialDrive(leftSide, RightSide);
+    
   }
 
   @Override
   public void robotInit() {
     m_oi = new OI();
     m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
+  
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
   }
@@ -153,13 +157,13 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     System.out.println("Operator Control Started");
-    drive.setSafetyEnabled(false);
+    
     while (isOperatorControl() && isEnabled()) {
-      SmartDashboard.putNumber(ENCODER_PREFIX + "Left/Pos", -leftFront.getSelectedSensorPosition(0));
-      SmartDashboard.putNumber(ENCODER_PREFIX + "Right/Pos", rightFront.getSelectedSensorPosition(0));
-      SmartDashboard.putNumber(ENCODER_PREFIX + "Avg/Pos", (-leftFront.getSelectedSensorPosition(0) + rightFront.getSelectedSensorPosition(0)) / 2);
+      //SmartDashboard.putNumber(ENCODER_PREFIX + "Left/Pos", -leftFront.getSelectedSensorPosition(0));
+      //SmartDashboard.putNumber(ENCODER_PREFIX + "Right/Pos", rightFront.getSelectedSensorPosition(0));
+      //SmartDashboard.putNumber(ENCODER_PREFIX + "Avg/Pos", (-leftFront.getSelectedSensorPosition(0) + rightFront.getSelectedSensorPosition(0)) / 2);
       //System.out.println(leftFront.getSpeed());
-      drive.arcadeDrive(-OI.mainStick.getY(), -OI.mainStick.getX());
+      
       Timer.delay(0.005);
     }
     
