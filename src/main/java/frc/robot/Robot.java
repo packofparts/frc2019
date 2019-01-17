@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.Joystick;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -38,7 +37,7 @@ public class Robot extends TimedRobot {
   private final WPI_TalonSRX rightRear;
   private final DifferentialDrive drive;
 
-  private final Joystick m_stick = new Joystick(1);
+  //public final Joystick mainStick;
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static OI m_oi;
   public static final String ENCODER_PREFIX = "Drive/Encoders/";
@@ -55,11 +54,10 @@ public class Robot extends TimedRobot {
   public Robot() {
     cameraServer = CameraServer.getInstance();
     cameraServer.startAutomaticCapture(0);
-
-    leftFront = new WPI_TalonSRX(1);
-    leftRear = new WPI_TalonSRX(2);
-    rightFront = new WPI_TalonSRX(3);
-    rightRear = new WPI_TalonSRX(4);
+    leftFront = new WPI_TalonSRX(RobotMap.leftFront);
+    leftRear = new WPI_TalonSRX(RobotMap.leftRear);
+    rightFront = new WPI_TalonSRX(RobotMap.rightFront);
+    rightRear = new WPI_TalonSRX(RobotMap.rightRear);
 
     leftFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotMap.CTRE_TIMEOUT_INIT);
     leftFront.setSensorPhase(true);
@@ -161,7 +159,7 @@ public class Robot extends TimedRobot {
       SmartDashboard.putNumber(ENCODER_PREFIX + "Right/Pos", rightFront.getSelectedSensorPosition(0));
       SmartDashboard.putNumber(ENCODER_PREFIX + "Avg/Pos", (-leftFront.getSelectedSensorPosition(0) + rightFront.getSelectedSensorPosition(0)) / 2);
       //System.out.println(leftFront.getSpeed());
-      drive.arcadeDrive(-m_stick.getY(), -m_stick.getX());
+      drive.arcadeDrive(-OI.mainStick.getY(), -OI.mainStick.getX());
       Timer.delay(0.005);
     }
     
