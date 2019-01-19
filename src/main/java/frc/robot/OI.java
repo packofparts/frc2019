@@ -26,16 +26,29 @@ public class OI {
   // There are a few additional built in buttons you can use. Additionally,
   // by subclassing Button you can create custom triggers and bind those to
   // commands the same as any other Button.
-  public XboxController mainJoyStick = new XboxController(0);
+  public XboxController driveJoyStick = new XboxController(0);
+  public XboxController gameJoyStick = new XboxController(1);
   
-  public double getRightX() {
-    return (mainJoyStick.getX(Hand.kRight));
+  public double getRightXDrive() {
+    return (driveJoyStick.getX(Hand.kRight));
   }
-  public double getRightY() {
-    return (mainJoyStick.getY(Hand.kRight));
+  public double getRightYDrive() {
+    return (driveJoyStick.getY(Hand.kRight));
   }
-  public double getLeftY() {
-    return (mainJoyStick.getY(Hand.kLeft));
+  public double getLeftYDrive() {
+    return (driveJoyStick.getY(Hand.kLeft));
+  }
+  public boolean getAGame() {
+    return (gameJoyStick.getAButton());
+  }
+  public boolean getBGame() {
+    return (gameJoyStick.getBButton());
+  }
+  public boolean getXGame() {
+    return (gameJoyStick.getXButton());
+  }
+  public boolean getYClickGame() {
+    return (gameJoyStick.getYButtonReleased());
   }
   //// TRIGGERING COMMANDS WITH BUTTONS
   // Once you have a button, it's trivial to bind it to a button in one of

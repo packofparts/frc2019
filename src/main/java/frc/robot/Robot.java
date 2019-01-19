@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.PneumaticsTesting;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -44,6 +46,7 @@ public class Robot extends TimedRobot {
   
   public static final String ENCODER_PREFIX = "Drive/Encoders/";
   public static DriveSubsystem driver;
+  public static PneumaticsTesting pneumaticsController;
   
  // private final CameraServer cameraServer;
 
@@ -62,6 +65,7 @@ public class Robot extends TimedRobot {
     leftRear = DriveSubsystem.leftRear;
     rightRear = DriveSubsystem.rightRear;
     driver = new DriveSubsystem();
+    pneumaticsController = new PneumaticsTesting();
     //drive = DriveSubsystem.drive;
     //leftFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotMap.CTRE_TIMEOUT_INIT);
     //leftFront.setSensorPhase(true);
