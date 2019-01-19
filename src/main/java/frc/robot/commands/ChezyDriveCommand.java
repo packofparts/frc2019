@@ -10,10 +10,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ArcadeDriveCommand extends Command {
-  
-  boolean arcadeDrive;
-  public ArcadeDriveCommand() {
+public class ChezyDriveCommand extends Command {
+  public ChezyDriveCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.driver);
@@ -23,17 +21,16 @@ public class ArcadeDriveCommand extends Command {
   @Override
   protected void initialize() {
     Robot.driver.treads.setSafetyEnabled(false);
-    
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
-    double forward = -Robot.m_oi.getRightYDrive();
+    double forward = -Robot.m_oi.getLeftYDrive();
     double turn = -Robot.m_oi.getRightXDrive();
     Robot.driver.arcadeDrive(forward, turn);
-    System.out.println("Arcade FTW");
+    System.out.println("ChezyDrive is successfully Chezying");
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -45,7 +42,7 @@ public class ArcadeDriveCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-  Robot.driver.stop();
+    Robot.driver.stop();
   }
 
   // Called when another command which requires one or more of the same

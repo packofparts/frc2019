@@ -46,13 +46,15 @@ public class DriveSubsystem extends Subsystem {
 
   @Override
   protected void initDefaultCommand() {
-    setDefaultCommand(new ArcadeDriveCommand());
+    //setDefaultCommand(new ArcadeDriveCommand());
+    
   }
 
 
   public void arcadeDrive(double forward, double turn) {
     treads.arcadeDrive(forward, turn);
   }
+
   public void stop() {
     treads.stopMotor();
   }
