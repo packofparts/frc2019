@@ -9,6 +9,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.vision.VisionRunner;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -17,6 +18,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.PneumaticsTesting;
+import frc.robot.subsystems.VisionSubsystem;
+
 import frc.robot.subsystems.PneumaticsTesting;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -44,6 +48,8 @@ public class Robot extends TimedRobot {
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static OI m_oi;
   
+  public static PneumaticsTesting pneumaticsController;
+  public static VisionSubsystem camera;
   public static final String ENCODER_PREFIX = "Drive/Encoders/";
   public static DriveSubsystem driver;
   public static PneumaticsTesting pneumaticsController;
@@ -62,16 +68,15 @@ public class Robot extends TimedRobot {
     //cameraServer.startAutomaticCapture(0);
     leftFront = DriveSubsystem.leftFront;
     rightFront = DriveSubsystem.rightFront;
+    pneumaticsController = new PneumaticsTesting();
+    camera = new VisionSubsystem();
+
     leftRear = DriveSubsystem.leftRear;
     rightRear = DriveSubsystem.rightRear;
     driver = new DriveSubsystem();
     pneumaticsController = new PneumaticsTesting();
     //drive = DriveSubsystem.drive;
     //leftFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotMap.CTRE_TIMEOUT_INIT);
-    //leftFront.setSensorPhase(true);
-
-    //rightFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotMap.CTRE_TIMEOUT_INIT);
-    //rightFront.setSensorPhase(true);
 
     
 

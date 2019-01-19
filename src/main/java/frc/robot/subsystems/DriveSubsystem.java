@@ -30,7 +30,6 @@ public class DriveSubsystem extends Subsystem {
    * Add your docs here.
    */
   public DriveSubsystem() {
-    
     WPI_TalonSRX leftFront = new WPI_TalonSRX(RobotMap.leftFront);
     WPI_TalonSRX leftRear = new WPI_TalonSRX(RobotMap.leftRear);
     WPI_TalonSRX rightFront = new WPI_TalonSRX(RobotMap.rightFront);

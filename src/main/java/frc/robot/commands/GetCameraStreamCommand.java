@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import frc.robot.Robot;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -19,13 +20,11 @@ public class GetCameraStreamCommand extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    CameraServer.getInstance().startAutomaticCapture();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-  //  CameraServer.getInstance().startAutomaticCapture();
   }
 
   // Make this return true when this Command no longer needs to run execute()
