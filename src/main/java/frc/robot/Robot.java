@@ -48,7 +48,7 @@ public class Robot extends TimedRobot {
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static OI m_oi;
   
-  public static PneumaticsTesting pneumaticsController;
+  
   public static VisionSubsystem camera;
   public static final String ENCODER_PREFIX = "Drive/Encoders/";
   public static DriveSubsystem driver;
