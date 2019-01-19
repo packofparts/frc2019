@@ -26,8 +26,8 @@ public class ArcadeDriveCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double forward = Robot.m_oi.getRightX();
-    double turn = Robot.m_oi.getRightY();
+    double forward = -Robot.m_oi.getRightY();
+    double turn = -Robot.m_oi.getRightX();
     Robot.driver.arcadeDrive(forward, turn);
     
   }
