@@ -163,7 +163,7 @@ public class Robot extends TimedRobot {
       //SmartDashboard.putNumber(ENCODER_PREFIX + "Right/Pos", rightFront.getSelectedSensorPosition(0));
       //SmartDashboard.putNumber(ENCODER_PREFIX + "Avg/Pos", (-leftFront.getSelectedSensorPosition(0) + rightFront.getSelectedSensorPosition(0)) / 2);
       //System.out.println(leftFront.getSpeed());
-      
+      Scheduler.getInstance().run();
       Timer.delay(0.005);
     }
     
