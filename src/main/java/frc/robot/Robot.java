@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
     //cameraServer.startAutomaticCapture(0);
     leftFront = DriveSubsystem.leftFront;
     rightFront = DriveSubsystem.rightFront;
-    pneumaticsController = new PneumaticsTesting();
+    
     camera = new VisionSubsystem();
 
     leftRear = DriveSubsystem.leftRear;
