@@ -34,6 +34,9 @@ public class OI {
   public double getRightY() {
     return (mainJoyStick.getY(Hand.kRight));
   }
+  public double getLeftY() {
+    return (mainJoyStick.getY(Hand.kLeft));
+  }
   //// TRIGGERING COMMANDS WITH BUTTONS
   // Once you have a button, it's trivial to bind it to a button in one of
   // three ways:
