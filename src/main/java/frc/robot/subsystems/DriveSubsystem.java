@@ -20,6 +20,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import frc.robot.OI;
 import frc.robot.RobotMap;
 //import frc.robot.commands.ArcadeDriveCommand;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
 
 public class DriveSubsystem extends Subsystem {
   public static WPI_TalonSRX leftFront;
@@ -31,6 +33,7 @@ public class DriveSubsystem extends Subsystem {
 
   public double leftRaw;
   public double rightRaw;
+  private final AHRS navX;
 /**
    * Add your docs here.
    */
@@ -39,7 +42,7 @@ public class DriveSubsystem extends Subsystem {
     WPI_TalonSRX leftRear = new WPI_TalonSRX(RobotMap.leftRear);
     WPI_TalonSRX rightFront = new WPI_TalonSRX(RobotMap.rightFront);
     WPI_TalonSRX rightRear = new WPI_TalonSRX(RobotMap.rightRear);
-   
+    navX = new AHRS(SPI.Port.kMXP);
 
     SpeedControllerGroup leftSide = new SpeedControllerGroup(leftFront, leftRear);
     SpeedControllerGroup RightSide = new SpeedControllerGroup(rightFront, rightRear);
@@ -59,11 +62,23 @@ public class DriveSubsystem extends Subsystem {
    leftEnc.close();
   */
   }
+  public double getHeading() {
+    double heading = navX.getAngle();
+    if (heading < 0) {
+        return 360 - (Math.abs(heading) % 360);
+    } else {
+        return Math.abs(heading) % 360;
+    }
+  }
 
+public void resetGyro() {
+  navX.reset();
+}
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("/left/raw", 1);
+   // SmartDashboard.putNumber("Drive/Encoders/left/raw", leftFront.getRaw());
    // SmartDashboard.putNumber("/right/raw", rightRaw);
+   SmartDashboard.putNumber("Drive/Gyro/Angle", getHeading());
   }
 
   @Override
