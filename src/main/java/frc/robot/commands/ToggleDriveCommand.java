@@ -8,44 +8,44 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.Robot;
 
-public class ArcadeDriveCommand extends Command {
-  
-  boolean arcadeDrive;
-  public ArcadeDriveCommand() {
+public class ToggleDriveCommand extends Command {
+  public ToggleDriveCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.driver);
   }
+  static boolean isArcadeDrive = false;
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.driver.treads.setSafetyEnabled(false);
-    
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
-    double forward = -Robot.m_oi.getRightYDrive();
-    double turn = -Robot.m_oi.getRightXDrive();
-    Robot.driver.arcadeDrive(forward, turn);
-    System.out.println("Arcade FTW");
+    if (isArcadeDrive) {
+      Scheduler.getInstance().add(new ChezyDriveCommand());
+      System.out.println("Now ChezyDrive!");
+    }
+    else {
+      Scheduler.getInstance().add(new ArcadeDriveCommand());
+      System.out.println("Now ArcadeDrive!!");
+    }
+    isArcadeDrive = !isArcadeDrive;
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-  Robot.driver.stop();
   }
 
   // Called when another command which requires one or more of the same

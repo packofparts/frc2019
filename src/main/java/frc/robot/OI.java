@@ -9,12 +9,21 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.ToggleDriveCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
+
 public class OI {
+  public OI() {
+    JoystickButton xButton = new JoystickButton(driveJoyStick, 3);
+    xButton.toggleWhenActive(new ToggleDriveCommand());
+  }
+ 
+ 
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
   //// joystick.
@@ -44,12 +53,15 @@ public class OI {
   public boolean getBGame() {
     return (gameJoyStick.getBButton());
   }
-  public boolean getXGame() {
-    return (gameJoyStick.getXButton());
+  public boolean getXClickDrive() {
+    return (driveJoyStick.getXButtonReleased());
   }
   public boolean getYClickGame() {
     return (gameJoyStick.getYButtonReleased());
   }
+
+
+  
   //// TRIGGERING COMMANDS WITH BUTTONS
   // Once you have a button, it's trivial to bind it to a button in one of
   // three ways:
