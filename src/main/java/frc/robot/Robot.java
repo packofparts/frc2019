@@ -19,6 +19,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.PneumaticsTesting;
+import frc.robot.subsystems.UltrasonicSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 //import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Timer;
@@ -50,6 +51,7 @@ public class Robot extends TimedRobot {
   public static VisionSubsystem camera;
   public static final String ENCODER_PREFIX = "Drive/Encoders/";
   public static DriveSubsystem driver;
+  public static UltrasonicSubsystem ultrasonic;
   public static PneumaticsTesting pneumaticsController;
   
  // private final CameraServer cameraServer;
@@ -62,23 +64,11 @@ public class Robot extends TimedRobot {
    * used for any initialization code.
    */
   public Robot() {
-    //cameraServer = CameraServer.getInstance();
-    //cameraServer.startAutomaticCapture(0);
-    //leftFront = DriveSubsystem.leftFront;
-    //rightFront = DriveSubsystem.rightFront;
-    
+    ultrasonic = new UltrasonicSubsystem();
     camera = new VisionSubsystem();
 
-    //leftRear = DriveSubsystem.leftRear;
-    //rightRear = DriveSubsystem.rightRear;
     driver = new DriveSubsystem();
-    pneumaticsController = new PneumaticsTesting();
-    //drive = DriveSubsystem.drive;
-    //leftFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, RobotMap.CTRE_TIMEOUT_INIT);
-
-    
-
-    
+    //pneumaticsController = new PneumaticsTesting(); 
   }
 
   @Override
@@ -88,16 +78,9 @@ public class Robot extends TimedRobot {
   
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
+    
   }
 
-  /**
-   * This function is called every robot packet, no matter the mode. Use
-   * this for items like diagnostics that you want ran during disabled,
-   * autonomous, teleoperated and test.
-   *
-   * <p>This runs after the mode specific periodic functions, but before
-   * LiveWindow and SmartDashboard integrated updating.
-   */
   @Override
   public void robotPeriodic() {
   }
@@ -111,37 +94,15 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
   }
 
-  /**
-   * This autonomous (along with the chooser code above) shows how to select
-   * between different autonomous modes using the dashboard. The sendable
-   * chooser code works with the Java SmartDashboard. If you prefer the
-   * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-   * getString code to get the auto name from the text box below the Gyro
-   *
-   * <p>You can add additional auto modes by adding additional commands to the
-   * chooser code above (like the commented example) or additional comparisons
-   * to the switch structure below with additional strings & commands.
-   */
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_chooser.getSelected();
-
-    /*
-     * String autoSelected = SmartDashboard.getString("Auto Selector",
-     * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-     * = new MyAutoCommand(); break; case "Default Auto": default:
-     * autonomousCommand = new ExampleCommand(); break; }
-     */
-
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();
     }
   }
 
-  /**
-   * This function is called periodically during autonomous.
-   */
   @Override
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
@@ -149,10 +110,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
@@ -166,10 +123,6 @@ public class Robot extends TimedRobot {
     System.out.println("Operator Control Started");
     
     while (isOperatorControl() && isEnabled()) {
-      //SmartDashboard.putNumber(ENCODER_PREFIX + "Left/Pos", -leftFront.getSelectedSensorPosition(0));
-      //SmartDashboard.putNumber(ENCODER_PREFIX + "Right/Pos", rightFront.getSelectedSensorPosition(0));
-      //SmartDashboard.putNumber(ENCODER_PREFIX + "Avg/Pos", (-leftFront.getSelectedSensorPosition(0) + rightFront.getSelectedSensorPosition(0)) / 2);
-      //System.out.println(leftFront.getSpeed());
       Scheduler.getInstance().run();
       Timer.delay(0.005);
       
@@ -177,9 +130,6 @@ public class Robot extends TimedRobot {
     
   }
 
-  /**
-   * This function is called periodically during test mode.
-   */
   @Override
   public void testPeriodic() {
   }
