@@ -11,10 +11,12 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.OI;
 import frc.robot.RobotMap;
 import frc.robot.commands.ArcadeDriveCommand;
@@ -26,6 +28,9 @@ public class DriveSubsystem extends Subsystem {
   public static WPI_TalonSRX leftRear;
   public DifferentialDrive treads;
   public XboxController m_mainJoyStick;
+
+  public double leftRaw;
+  public double rightRaw;
 /**
    * Add your docs here.
    */
@@ -41,7 +46,22 @@ public class DriveSubsystem extends Subsystem {
     
     treads = new DifferentialDrive(leftSide, RightSide);
 
- 
+    Encoder leftEnc = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
+   // Encoder rightEnc = new Encoder(0, 3, false, Encoder.EncodingType.k4X);
+    int count = leftEnc.get();
+    double leftRaw = leftEnc.getRaw();
+  //  double rightRaw = rightEnc.getRaw();
+    double distance = leftEnc.getDistance();
+    double period = leftEnc.getPeriod();
+    double rate = leftEnc.getRate();
+  //  boolean direction = sampleEncoder.getDirection();
+   // boolean stopped = sampleEncoder.getStopped();
+  }
+
+  @Override
+  public void periodic() {
+    SmartDashboard.putNumber("/left/raw", 1);
+   // SmartDashboard.putNumber("/right/raw", rightRaw);
   }
 
   @Override
