@@ -7,9 +7,9 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.vision.VisionRunner;
+//import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+//import edu.wpi.first.cameraserver.CameraServer;
+//import edu.wpi.first.vision.VisionRunner;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -20,10 +20,10 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.PneumaticsTesting;
 import frc.robot.subsystems.VisionSubsystem;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+//import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+//import edu.wpi.first.wpilibj.GenericHID.Hand;
+//import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -33,12 +33,13 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  * project.
  */
 public class Robot extends TimedRobot {
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private final WPI_TalonSRX leftFront;
+  //private static final String kDefaultAuto = "Default";
+  //private static final String kCustomAuto = "My Auto";
+  /*private final WPI_TalonSRX leftFront;
   private final WPI_TalonSRX leftRear;
   private final WPI_TalonSRX rightFront;
   private final WPI_TalonSRX rightRear;
+  */
   //private final DifferentialDrive drive;
 
   //public final Joystick mainStick;
@@ -63,13 +64,13 @@ public class Robot extends TimedRobot {
   public Robot() {
     //cameraServer = CameraServer.getInstance();
     //cameraServer.startAutomaticCapture(0);
-    leftFront = DriveSubsystem.leftFront;
-    rightFront = DriveSubsystem.rightFront;
+    //leftFront = DriveSubsystem.leftFront;
+    //rightFront = DriveSubsystem.rightFront;
     
     camera = new VisionSubsystem();
 
-    leftRear = DriveSubsystem.leftRear;
-    rightRear = DriveSubsystem.rightRear;
+    //leftRear = DriveSubsystem.leftRear;
+    //rightRear = DriveSubsystem.rightRear;
     driver = new DriveSubsystem();
     pneumaticsController = new PneumaticsTesting();
     //drive = DriveSubsystem.drive;

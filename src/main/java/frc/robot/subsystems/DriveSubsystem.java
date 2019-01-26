@@ -11,15 +11,15 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.command.CommandGroup;
+//import edu.wpi.first.wpilibj.Encoder;
+//import edu.wpi.first.wpilibj.GenericHID.Hand;
+//import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.OI;
+//import frc.robot.OI;
 import frc.robot.RobotMap;
-import frc.robot.commands.ArcadeDriveCommand;
+//import frc.robot.commands.ArcadeDriveCommand;
 
 public class DriveSubsystem extends Subsystem {
   public static WPI_TalonSRX leftFront;
@@ -45,8 +45,8 @@ public class DriveSubsystem extends Subsystem {
     SpeedControllerGroup RightSide = new SpeedControllerGroup(rightFront, rightRear);
     
     treads = new DifferentialDrive(leftSide, RightSide);
-
-    Encoder leftEnc = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
+/*
+    Encoder leftEnc = new Encoder(1, 2, false, Encoder.EncodingType.k4X);
    // Encoder rightEnc = new Encoder(0, 3, false, Encoder.EncodingType.k4X);
     int count = leftEnc.get();
     double leftRaw = leftEnc.getRaw();
@@ -56,6 +56,8 @@ public class DriveSubsystem extends Subsystem {
     double rate = leftEnc.getRate();
   //  boolean direction = sampleEncoder.getDirection();
    // boolean stopped = sampleEncoder.getStopped();
+   leftEnc.close();
+  */
   }
 
   @Override

@@ -21,6 +21,7 @@ public class OI {
   public OI() {
     JoystickButton xButton = new JoystickButton(driveJoyStick, 3);
     xButton.toggleWhenActive(new ToggleDriveCommand());
+    xButton.close();
   }
  
  
