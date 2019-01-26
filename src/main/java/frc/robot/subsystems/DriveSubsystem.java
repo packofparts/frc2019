@@ -47,7 +47,6 @@ public class DriveSubsystem extends Subsystem {
   @Override
   protected void initDefaultCommand() {
     //setDefaultCommand(new ArcadeDriveCommand());
-    
   }
 
 

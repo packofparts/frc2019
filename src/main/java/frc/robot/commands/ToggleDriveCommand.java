@@ -28,11 +28,11 @@ public class ToggleDriveCommand extends Command {
   protected void execute() {
     if (isArcadeDrive) {
       Scheduler.getInstance().add(new ChezyDriveCommand());
-      System.out.println("Now ChezyDrive!");
+      //System.out.println("Now CheesyDrive!");
     }
     else {
       Scheduler.getInstance().add(new ArcadeDriveCommand());
-      System.out.println("Now ArcadeDrive!!");
+      //System.out.println("Now ArcadeDrive!!");
     }
     isArcadeDrive = !isArcadeDrive;
   }
