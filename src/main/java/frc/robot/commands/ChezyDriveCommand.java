@@ -29,7 +29,7 @@ public class ChezyDriveCommand extends Command {
     double forward = -Robot.m_oi.getLeftYDrive();
     double turn = -Robot.m_oi.getRightXDrive();
     Robot.driver.arcadeDrive(forward, turn);
-    System.out.println("ChezyDrive is successfully Chezying");
+    //System.out.println("ChezyDrive is successfully Chezying");
 
   }
 

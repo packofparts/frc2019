@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -39,6 +40,8 @@ public class DriveSubsystem extends Subsystem {
     WPI_TalonSRX leftRear = new WPI_TalonSRX(RobotMap.leftRear);
     WPI_TalonSRX rightFront = new WPI_TalonSRX(RobotMap.rightFront);
     WPI_TalonSRX rightRear = new WPI_TalonSRX(RobotMap.rightRear);
+    leftRear.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    rightRear.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
    
 
     SpeedControllerGroup leftSide = new SpeedControllerGroup(leftFront, leftRear);
@@ -62,8 +65,11 @@ public class DriveSubsystem extends Subsystem {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("/left/raw", 1);
+    //SmartDashboard.putNumber("/left/raw", 1);
    // SmartDashboard.putNumber("/right/raw", rightRaw);
+
+    //SmartDashboard.putNumber("Drive/Encoders/Encoder R", this.getEncoderRight());
+    //SmartDashboard.putNumber("Drive/Encoders/Encoder L", this.getEncoderLeft());
   }
 
   @Override
@@ -72,7 +78,13 @@ public class DriveSubsystem extends Subsystem {
     
   }
 
-
+  public double getEncoderLeft() {
+    return leftRear.getSelectedSensorPosition();
+  }
+  public double getEncoderRight() {
+    return rightRear.getSelectedSensorPosition();
+  } 
+  
   public void arcadeDrive(double forward, double turn) {
     treads.arcadeDrive(forward, turn);
   }

@@ -172,6 +172,7 @@ public class Robot extends TimedRobot {
       //System.out.println(leftFront.getSpeed());
       Scheduler.getInstance().run();
       Timer.delay(0.005);
+      
     }
     
   }

@@ -33,7 +33,7 @@ public class ArcadeDriveCommand extends Command {
     double forward = -Robot.m_oi.getRightYDrive();
     double turn = -Robot.m_oi.getRightXDrive();
     Robot.driver.arcadeDrive(forward, turn);
-    System.out.println("Arcade FTW");
+    //System.out.println("Arcade FTW");
   }
 
   // Make this return true when this Command no longer needs to run execute()

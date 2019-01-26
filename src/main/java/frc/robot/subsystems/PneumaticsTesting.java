@@ -19,7 +19,7 @@ import frc.robot.commands.PneumaticsTestingCommand;
 public class PneumaticsTesting extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  public Solenoid testing1 = new Solenoid(RobotMap.pneumaticTest);
+  public Solenoid testing1 = new Solenoid(RobotMap.pcmcan, RobotMap.pneumaticTest);
   public Compressor testing = new Compressor();
   @Override
   public void initDefaultCommand() {
