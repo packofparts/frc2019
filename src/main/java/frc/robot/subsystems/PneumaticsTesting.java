@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.commands.PneumaticsTestingCommand;
-//ADD TOGGLE Y FOR DISABLING COMPRESSOR
 /**
  * Add your docs here.
  */
