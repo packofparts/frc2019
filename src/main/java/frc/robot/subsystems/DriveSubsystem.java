@@ -38,7 +38,8 @@ public class DriveSubsystem extends Subsystem {
     rightFront = new WPI_TalonSRX(RobotMap.rightFront);
     rightRear = new WPI_TalonSRX(RobotMap.rightRear);
     leftRear.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-    rightRear.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    //rightRear.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+
 
     
   //  System.out.println(rightRear.getSelectedSensorPosition(0));
@@ -46,10 +47,10 @@ public class DriveSubsystem extends Subsystem {
     navX = new AHRS(SPI.Port.kMXP);
 
     SpeedControllerGroup leftSide = new SpeedControllerGroup(leftFront, leftRear);
-    SpeedControllerGroup RightSide = new SpeedControllerGroup(rightFront, rightRear);
+    SpeedControllerGroup rightSide = new SpeedControllerGroup(rightFront, rightRear);
     
     
-    treads = new DifferentialDrive(leftSide, RightSide);
+    treads = new DifferentialDrive(leftSide, rightSide);
 
   }
   public double getHeading() {
@@ -67,7 +68,8 @@ public void resetGyro() {
   @Override
   public void periodic() {
    SmartDashboard.putNumber("Drive/Gyro/Angle", getHeading());
-   System.out.println(rightRear.getSelectedSensorPosition(0));
+   SmartDashboard.putNumber("Drive/Encoders/Right", rightRear.getSelectedSensorPosition());
+   System.out.println(rightRear.getSelectedSensorVelocity(0));
   }
 
   @Override
@@ -83,7 +85,7 @@ public void resetGyro() {
   } 
   
   public void arcadeDrive(double forward, double turn) {
-    treads.arcadeDrive(forward, turn);
+    treads.arcadeDrive(-forward, turn);
   }
 
   public void stop() {
