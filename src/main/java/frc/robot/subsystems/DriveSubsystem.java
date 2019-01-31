@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
+import frc.robot.commands.ToggleDriveCommand;
 
 public class DriveSubsystem extends Subsystem {
   public static WPI_TalonSRX leftFront;
@@ -25,6 +26,7 @@ public class DriveSubsystem extends Subsystem {
   public static WPI_TalonSRX leftRear;
   public DifferentialDrive treads;
   public XboxController m_mainJoyStick;
+  public static boolean isBackward;
 
   public double leftRaw;
   public double rightRaw;
@@ -38,6 +40,8 @@ public class DriveSubsystem extends Subsystem {
     rightFront = new WPI_TalonSRX(RobotMap.rightFront);
     rightRear = new WPI_TalonSRX(RobotMap.rightRear);
     leftRear.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    isBackward = false;
+    
     //rightRear.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 
 
@@ -69,7 +73,8 @@ public void resetGyro() {
   public void periodic() {
    SmartDashboard.putNumber("Drive/Gyro/Angle", getHeading());
    SmartDashboard.putNumber("Drive/Encoders/Right", rightRear.getSelectedSensorPosition());
-   System.out.println(rightRear.getSelectedSensorVelocity(0));
+   SmartDashboard.putData("ToggleDriveCommand", new ToggleDriveCommand());
+   System.out.println(rightRear.getSelectedSensorPosition(0));
   }
 
   @Override
@@ -85,7 +90,17 @@ public void resetGyro() {
   } 
   
   public void arcadeDrive(double forward, double turn) {
-    treads.arcadeDrive(-forward, turn);
+
+    if(isBackward) {
+      treads.arcadeDrive(forward, turn);
+    } else {
+      treads.arcadeDrive(-forward, turn);
+    }
+    //FORWARD: treads.arcadeDrive(-forward, turn);
+    
+  }
+  public void flipDrive() {
+    isBackward = !isBackward;
   }
 
   public void stop() {
