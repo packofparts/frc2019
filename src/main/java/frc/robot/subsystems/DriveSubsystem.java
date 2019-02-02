@@ -65,7 +65,9 @@ public class DriveSubsystem extends Subsystem {
         return Math.abs(heading) % 360;
     }
   }
-
+  public double getTilt() {
+    return navX.getRoll();
+  }
 public void resetGyro() {
   navX.reset();
 }
@@ -73,6 +75,7 @@ public void resetGyro() {
   public void periodic() {
    SmartDashboard.putNumber("Drive/Gyro/Angle", getHeading());
    SmartDashboard.putNumber("Drive/Encoders/Right", rightRear.getSelectedSensorPosition());
+   SmartDashboard.putNumber("Drive/Tilt", getTilt());
   }
    //System.out.println(rightRear.getSelectedSensorPosition(0));
 

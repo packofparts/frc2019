@@ -13,6 +13,9 @@ import frc.robot.Robot;
 
 
 public class ToggleDriveCommand extends Command {
+
+  boolean isDone;
+
   public ToggleDriveCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -23,6 +26,7 @@ public class ToggleDriveCommand extends Command {
   @Override
   protected void initialize() {
     System.out.println("Now checking for dpad input");
+    isDone = false;
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -33,25 +37,25 @@ public class ToggleDriveCommand extends Command {
     } 
    else if(Robot.m_oi.getDpad() == 0) {
       Scheduler.getInstance().add(new ArcadeDriveCommand());
-      
+      isDone = true;
     }  
    else if(Robot.m_oi.getDpad() == 90) {
       Scheduler.getInstance().add(new ChezyDriveCommand());
-      
+      isDone = true;
     }  
    else if(Robot.m_oi.getDpad() == 180) {
       
     }  
    else if(Robot.m_oi.getDpad() == 270) {
       Scheduler.getInstance().add(new CallumDriveCommand());
-     
+      isDone = true;
     }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return isDone;
   }
 
   // Called once after isFinished returns true
