@@ -14,20 +14,18 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 
-public class TurnByCommand extends Command {
-  private double m_turnDegree = 0;
-  private double m_targetDegree = 0;
-  private boolean m_heading = true;
-  private double startingDegree = 0;
+public class DriveByCommand extends Command {
+  private double m_Distance = 0;
+  private double m_targetDistance = 0;
+  private double startingDistance = 0;
   private boolean is_Finished = false;
-  private double delta = 1;
-  boolean arcadeDrive;
+  private double delta = 15;
 
-  public TurnByCommand(double turnDegree) {//, boolean addheading) {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+
+  public DriveByCommand(double distance) { 
+  
     is_Finished = false;
-    m_turnDegree = turnDegree;
+    m_Distance = distance * 1694.15;
     requires(Robot.driver);
   }
 
@@ -35,22 +33,16 @@ public class TurnByCommand extends Command {
   protected void initialize() {
     Robot.driver.treads.setSafetyEnabled(false);
   //  Robot.driver.resetGyro();
-    startingDegree = Robot.driver.getHeading();
-    m_targetDegree = m_turnDegree + startingDegree;
-    if (m_targetDegree > 360) {
-      m_targetDegree -= 360;
-    }
-    else if (m_targetDegree < 0) {
-      m_targetDegree += 360;
-    }
+    startingDistance = Robot.driver.getEncoderRight();
+    m_targetDistance = m_Distance + startingDistance;
   }
 
   @Override
   protected void execute() {
     is_Finished = false;
-    //System.out.print("hi shrimp flamingos oo oo oo if you're");
-    double m_currentDegree = Robot.driver.getHeading();
-    double m_speed = ((m_targetDegree-m_currentDegree)/m_turnDegree);
+  //  System.out.print("hi shrimp flamingos oo oo oo if you're multi colored thats cool too, you dount need to change, its boring being the same Flamingo ooooo yash is cool");
+    double m_currentDistance = Robot.driver.getEncoderRight();
+    double m_speed = ((m_targetDistance-m_currentDistance)/m_Distance)+0.3;
     if (m_speed > 1.0) {
       m_speed = 1.0;
     }
@@ -58,17 +50,18 @@ public class TurnByCommand extends Command {
       m_speed = 0.5;
     }
     
-    if (m_turnDegree > 0) {
-      Robot.driver.arcadeDrive(0, -m_speed);
-      if(m_targetDegree-m_currentDegree > -delta && m_targetDegree-m_currentDegree < delta ) {
+    if (m_Distance > 0) {
+      Robot.driver.arcadeDrive(m_speed, 0);
+      System.out.println(m_targetDistance-m_currentDistance);
+      if(m_targetDistance-m_currentDistance < delta) {
          Robot.driver.arcadeDrive(0, 0);
          Robot.driver.stop();
          is_Finished = true;
         }
       }
     else {
-      Robot.driver.arcadeDrive(0, m_speed);
-      if(m_targetDegree-m_currentDegree > -delta && m_targetDegree-m_currentDegree < delta ) {
+      Robot.driver.arcadeDrive(-m_speed, 0);
+      if(m_targetDistance-m_currentDistance > -delta) {
         Robot.driver.arcadeDrive(0, 0);
         Robot.driver.stop();
        is_Finished = true;

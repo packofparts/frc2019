@@ -7,6 +7,10 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,10 +26,21 @@ public class UltrasonicSubsystem extends Subsystem {
 
   @Override
   public void periodic() {
-    double frontDis = frontUltrasonic.getAverageVoltage();
-    double rearDis = rearUltrasonic.getAverageVoltage();
-    SmartDashboard.putNumber("frontultrasonic/raw", frontDis*longnumber);
-    SmartDashboard.putNumber("rearultrasonic/raw", rearDis*longnumber);
+    double frontDis = frontUltrasonic.getAverageVoltage()*longnumber;
+    double rearDis = rearUltrasonic.getAverageVoltage()*longnumber;
+    SmartDashboard.putNumber("frontultrasonic/raw", frontDis);
+    SmartDashboard.putNumber("rearultrasonic/raw", rearDis);
+
+    if (frontDis < 20) {
+     // System.out.println("Rumbling");
+    //  driveJoyStick.setRumble(RumbleType.kLeftRumble, 1);
+     // driveJoyStick.setRumble(RumbleType.kRightRumble, 1);
+    }
+    else {
+      //System.out.println("No Rumbling");
+    //  driveJoyStick.setRumble(RumbleType.kLeftRumble, 0);
+     // driveJoyStick.setRumble(RumbleType.kRightRumble, 0);
+    }
   //  Timer.delay(0.1);
   }
 

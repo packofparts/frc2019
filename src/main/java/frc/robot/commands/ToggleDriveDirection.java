@@ -8,7 +8,10 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.OI;
 import frc.robot.Robot;
+import frc.robot.commands.TurnByCommand;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
 public class ToggleDriveDirection extends Command {
   public ToggleDriveDirection() {
@@ -24,12 +27,15 @@ public class ToggleDriveDirection extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Scheduler.getInstance().add(new TurnByCommand(170));
     Robot.driver.flipDrive();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
+  //  Scheduler.getInstance().add(new ToggleDriveCommand());
+    //Scheduler.getInstance().add(new ToggleDriveCommand());
     return true;
   }
 

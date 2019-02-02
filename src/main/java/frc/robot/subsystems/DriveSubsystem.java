@@ -17,7 +17,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
-//import frc.robot.commands.ToggleDriveCommand;
+import frc.robot.commands.ToggleDriveCommand;
+import frc.robot.OI;
+import frc.robot.Robot;
+import frc.robot.commands.TurnByCommand;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
 public class DriveSubsystem extends Subsystem {
   public static WPI_TalonSRX leftFront;
@@ -27,6 +31,7 @@ public class DriveSubsystem extends Subsystem {
   public DifferentialDrive treads;
   public XboxController m_mainJoyStick;
   public static boolean isBackward;
+  public static String defaultDrive = "ChezyDriveCommand";
 
   public double leftRaw;
   public double rightRaw;
@@ -73,9 +78,30 @@ public void resetGyro() {
 }
   @Override
   public void periodic() {
-   SmartDashboard.putNumber("Drive/Gyro/Angle", getHeading());
-   SmartDashboard.putNumber("Drive/Encoders/Right", rightRear.getSelectedSensorPosition());
-   SmartDashboard.putNumber("Drive/Tilt", getTilt());
+    //SmartDashboard.putNumber("/left/raw", 1);
+   // SmartDashboard.putNumber("/right/raw", rightRaw);
+
+    SmartDashboard.putNumber("Drive/Encoders/Encoder R", this.getEncoderRight());
+    SmartDashboard.putNumber("Drive/Encoders/Encoder L", this.getEncoderLeft());
+   // SmartDashboard.putNumber("Drive/Encoders/left/raw", leftFront.getRaw());
+    // SmartDashboard.putNumber("/right/raw", rightRaw);
+    SmartDashboard.putNumber("Drive/Gyro/Angle", getHeading());
+  //  System.out.println(Robot.m_oi.getTriggerDrive());
+    
+/*    if (Robot.m_oi.getRightTrigger() > 0.7) {
+      if (Robot.driver.getHeading() > 0 && Robot.driver.getHeading() < 90) {
+        Scheduler.getInstance().add(new TurnByCommand(90-(Robot.driver.getHeading()-10)));
+      }
+      if (Robot.driver.getHeading() > 90 && Robot.driver.getHeading() < 180) {
+        Scheduler.getInstance().add(new TurnByCommand(180-(Robot.driver.getHeading()-10)));
+      }
+      if (Robot.driver.getHeading() > 180 && Robot.driver.getHeading() < 270) {
+        Scheduler.getInstance().add(new TurnByCommand((270-Robot.driver.getHeading()-10)));
+      }
+      if (Robot.driver.getHeading() > 270 && Robot.driver.getHeading() < 360) {
+        Scheduler.getInstance().add(new TurnByCommand((360-Robot.driver.getHeading()-10)));
+      }
+    }*/
   }
    //System.out.println(rightRear.getSelectedSensorPosition(0));
 
