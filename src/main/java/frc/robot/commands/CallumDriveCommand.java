@@ -8,44 +8,29 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.Robot;
 
-
-public class ToggleDriveCommand extends Command {
-  public ToggleDriveCommand() {
+public class CallumDriveCommand extends Command {
+  public CallumDriveCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    requires(Robot.driver);
   }
-  
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    System.out.println("Now checking for dpad input");
+    Robot.driver.treads.setSafetyEnabled(false);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-   if(Robot.m_oi.getDpad() == -1) {
-    
-    } 
-   else if(Robot.m_oi.getDpad() == 0) {
-      Scheduler.getInstance().add(new ArcadeDriveCommand());
-      
-    }  
-   else if(Robot.m_oi.getDpad() == 90) {
-      Scheduler.getInstance().add(new ChezyDriveCommand());
-      
-    }  
-   else if(Robot.m_oi.getDpad() == 180) {
-      
-    }  
-   else if(Robot.m_oi.getDpad() == 270) {
-      Scheduler.getInstance().add(new CallumDriveCommand());
-     
-    }
+    double forward = -Robot.m_oi.getLeftYDrive();
+    double turn = -Robot.m_oi.getTriggerDrive();
+    Robot.driver.arcadeDrive(forward, turn);
+    //System.out.println("ChezyDrive is successfully Chezying");
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -57,6 +42,7 @@ public class ToggleDriveCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.driver.stop();
   }
 
   // Called when another command which requires one or more of the same

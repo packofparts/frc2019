@@ -73,8 +73,7 @@ public void resetGyro() {
   public void periodic() {
    SmartDashboard.putNumber("Drive/Gyro/Angle", getHeading());
    SmartDashboard.putNumber("Drive/Encoders/Right", rightRear.getSelectedSensorPosition());
-   SmartDashboard.putData("ToggleDriveCommand", new ToggleDriveCommand());
-   System.out.println(rightRear.getSelectedSensorPosition(0));
+   //System.out.println(rightRear.getSelectedSensorPosition(0));
   }
 
   @Override

@@ -26,6 +26,8 @@ public class OI {
     xButton.toggleWhenActive(new ToggleDriveCommand());
     xButton.close();
     
+
+
     //Y button toggles drive direction
     JoystickButton yButton = new JoystickButton(driveJoyStick, 4);
     yButton.toggleWhenActive(new ToggleDriveDirection());
@@ -70,8 +72,14 @@ public class OI {
   public boolean getXClickDrive() {
     return (driveJoyStick.getXButtonReleased());
   }
+  public double getTriggerDrive() {
+    return (driveJoyStick.getTriggerAxis(Hand.kRight) - driveJoyStick.getTriggerAxis(Hand.kLeft));
+  }
   public boolean getYClickGame() {
     return (gameJoyStick.getYButtonReleased());
+  }
+  public int getDpad() {
+    return (driveJoyStick.getPOV());
   }
 
 
