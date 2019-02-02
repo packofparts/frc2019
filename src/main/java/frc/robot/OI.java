@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.ToggleDriveCommand;
 import frc.robot.commands.ToggleDriveDirection;
-
+import frc.robot.commands.TurnByCommand;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -31,7 +32,6 @@ public class OI {
     JoystickButton yButton = new JoystickButton(driveJoyStick, 4);
     yButton.toggleWhenActive(new ToggleDriveDirection());
     yButton.close();
-
 
     JoystickButton leftBumper = new JoystickButton(driveJoyStick, 5);
     leftBumper.whenPressed(new TurnByCommand(-80));
@@ -70,7 +70,7 @@ public class OI {
     return (driveJoyStick.getTriggerAxis(Hand.kLeft));
   }
   public double getRightTrigger() {
-    return (driveJoyStick.getTriggerAxis(Hand.kLeft));
+    return (driveJoyStick.getTriggerAxis(Hand.kRight));
   }
   public boolean getAGame() {
     return (gameJoyStick.getAButton());

@@ -18,6 +18,10 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.commands.ToggleDriveCommand;
+import frc.robot.OI;
+import frc.robot.Robot;
+import frc.robot.commands.TurnByCommand;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
 public class DriveSubsystem extends Subsystem {
   public static WPI_TalonSRX leftFront;
@@ -71,7 +75,6 @@ public void resetGyro() {
 }
   @Override
   public void periodic() {
-<<<<<<< HEAD
     //SmartDashboard.putNumber("/left/raw", 1);
    // SmartDashboard.putNumber("/right/raw", rightRaw);
 
@@ -80,12 +83,22 @@ public void resetGyro() {
    // SmartDashboard.putNumber("Drive/Encoders/left/raw", leftFront.getRaw());
     // SmartDashboard.putNumber("/right/raw", rightRaw);
     SmartDashboard.putNumber("Drive/Gyro/Angle", getHeading());
-=======
-   SmartDashboard.putNumber("Drive/Gyro/Angle", getHeading());
-   SmartDashboard.putNumber("Drive/Encoders/Right", rightRear.getSelectedSensorPosition());
-   SmartDashboard.putData("ToggleDriveCommand", new ToggleDriveCommand());
-   System.out.println(rightRear.getSelectedSensorPosition(0));
->>>>>>> 2d37573ef9e08b4c6a2e5de3827bcb3ff1e6cd6f
+
+    
+    if (Robot.m_oi.getRightTrigger() > 0.7) {
+      if (Robot.driver.getHeading() > 0 && Robot.driver.getHeading() < 90) {
+        Scheduler.getInstance().add(new TurnByCommand(90-(Robot.driver.getHeading()-10)));
+      }
+      if (Robot.driver.getHeading() > 90 && Robot.driver.getHeading() < 180) {
+        Scheduler.getInstance().add(new TurnByCommand(180-(Robot.driver.getHeading()-10)));
+      }
+      if (Robot.driver.getHeading() > 180 && Robot.driver.getHeading() < 270) {
+        Scheduler.getInstance().add(new TurnByCommand((270-Robot.driver.getHeading()-10)));
+      }
+      if (Robot.driver.getHeading() > 270 && Robot.driver.getHeading() < 360) {
+        Scheduler.getInstance().add(new TurnByCommand((360-Robot.driver.getHeading()-10)));
+      }
+    }
   }
 
   @Override

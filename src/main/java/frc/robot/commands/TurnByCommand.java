@@ -33,7 +33,7 @@ public class TurnByCommand extends Command {
   @Override
   protected void initialize() {
     Robot.driver.treads.setSafetyEnabled(false);
-    Robot.driver.resetGyro();
+  //  Robot.driver.resetGyro();
     startingDegree = Robot.driver.getHeading();
     m_targetDegree = m_turnDegree + startingDegree;
     if (m_targetDegree > 360) {
@@ -47,7 +47,7 @@ public class TurnByCommand extends Command {
   @Override
   protected void execute() {
     is_Finished = false;
-    System.out.print("hi shrimp flamingos oo oo oo if you're");
+    //System.out.print("hi shrimp flamingos oo oo oo if you're");
     double m_currentDegree = Robot.driver.getHeading();
     double m_speed = ((m_targetDegree-m_currentDegree)/m_turnDegree);
     if (m_speed > 1.0) {
