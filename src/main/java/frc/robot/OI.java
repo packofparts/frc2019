@@ -15,6 +15,7 @@ import frc.robot.commands.PneumaticsToggleCommand;
 import frc.robot.commands.ToggleDriveCommand;
 import frc.robot.commands.ToggleDriveDirection;
 import frc.robot.commands.TurnByCommand;
+import frc.robot.commands.testingCommandGroup;
 
 
 /**
@@ -28,6 +29,9 @@ public class OI {
     JoystickButton driveXButton = new JoystickButton(driveJoyStick, 3);
     driveXButton.toggleWhenActive(new ToggleDriveCommand());
     driveXButton.close();
+    JoystickButton driveBButton = new JoystickButton(driveJoyStick, 2);
+    driveBButton.toggleWhenActive(new testingCommandGroup());
+    driveBButton.close();
     
 
 
