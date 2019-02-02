@@ -9,20 +9,15 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
-//import edu.wpi.first.wpilibj.Encoder;
-//import edu.wpi.first.wpilibj.GenericHID.Hand;
-//import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//import frc.robot.OI;
 import frc.robot.RobotMap;
-//import frc.robot.commands.ArcadeDriveCommand;
-import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.SPI;
+import frc.robot.commands.ToggleDriveCommand;
 
 public class DriveSubsystem extends Subsystem {
   public static WPI_TalonSRX leftFront;
@@ -31,6 +26,7 @@ public class DriveSubsystem extends Subsystem {
   public static WPI_TalonSRX leftRear;
   public DifferentialDrive treads;
   public XboxController m_mainJoyStick;
+  public static boolean isBackward;
 
   public double leftRaw;
   public double rightRaw;
@@ -39,32 +35,27 @@ public class DriveSubsystem extends Subsystem {
    * Add your docs here.
    */
   public DriveSubsystem() {
-    WPI_TalonSRX leftFront = new WPI_TalonSRX(RobotMap.leftFront);
-    WPI_TalonSRX leftRear = new WPI_TalonSRX(RobotMap.leftRear);
-    WPI_TalonSRX rightFront = new WPI_TalonSRX(RobotMap.rightFront);
-    WPI_TalonSRX rightRear = new WPI_TalonSRX(RobotMap.rightRear);
+    leftFront = new WPI_TalonSRX(RobotMap.leftFront);
+    leftRear = new WPI_TalonSRX(RobotMap.leftRear);
+    rightFront = new WPI_TalonSRX(RobotMap.rightFront);
+    rightRear = new WPI_TalonSRX(RobotMap.rightRear);
     leftRear.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-    rightRear.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-   
+    isBackward = false;
+    
+    //rightRear.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+
+
+    
+  //  System.out.println(rightRear.getSelectedSensorPosition(0));
+
     navX = new AHRS(SPI.Port.kMXP);
 
     SpeedControllerGroup leftSide = new SpeedControllerGroup(leftFront, leftRear);
-    SpeedControllerGroup RightSide = new SpeedControllerGroup(rightFront, rightRear);
+    SpeedControllerGroup rightSide = new SpeedControllerGroup(rightFront, rightRear);
     
-    treads = new DifferentialDrive(leftSide, RightSide);
-/*
-    Encoder leftEnc = new Encoder(1, 2, false, Encoder.EncodingType.k4X);
-   // Encoder rightEnc = new Encoder(0, 3, false, Encoder.EncodingType.k4X);
-    int count = leftEnc.get();
-    double leftRaw = leftEnc.getRaw();
-  //  double rightRaw = rightEnc.getRaw();
-    double distance = leftEnc.getDistance();
-    double period = leftEnc.getPeriod();
-    double rate = leftEnc.getRate();
-  //  boolean direction = sampleEncoder.getDirection();
-   // boolean stopped = sampleEncoder.getStopped();
-   leftEnc.close();
-  */
+    
+    treads = new DifferentialDrive(leftSide, rightSide);
+
   }
   public double getHeading() {
     double heading = navX.getAngle();
@@ -80,6 +71,7 @@ public void resetGyro() {
 }
   @Override
   public void periodic() {
+<<<<<<< HEAD
     //SmartDashboard.putNumber("/left/raw", 1);
    // SmartDashboard.putNumber("/right/raw", rightRaw);
 
@@ -88,6 +80,12 @@ public void resetGyro() {
    // SmartDashboard.putNumber("Drive/Encoders/left/raw", leftFront.getRaw());
     // SmartDashboard.putNumber("/right/raw", rightRaw);
     SmartDashboard.putNumber("Drive/Gyro/Angle", getHeading());
+=======
+   SmartDashboard.putNumber("Drive/Gyro/Angle", getHeading());
+   SmartDashboard.putNumber("Drive/Encoders/Right", rightRear.getSelectedSensorPosition());
+   SmartDashboard.putData("ToggleDriveCommand", new ToggleDriveCommand());
+   System.out.println(rightRear.getSelectedSensorPosition(0));
+>>>>>>> 2d37573ef9e08b4c6a2e5de3827bcb3ff1e6cd6f
   }
 
   @Override
@@ -103,7 +101,17 @@ public void resetGyro() {
   } 
   
   public void arcadeDrive(double forward, double turn) {
-    treads.arcadeDrive(forward, turn);
+
+    if(isBackward) {
+      treads.arcadeDrive(forward, turn);
+    } else {
+      treads.arcadeDrive(-forward, turn);
+    }
+    //FORWARD: treads.arcadeDrive(-forward, turn);
+    
+  }
+  public void flipDrive() {
+    isBackward = !isBackward;
   }
 
   public void stop() {

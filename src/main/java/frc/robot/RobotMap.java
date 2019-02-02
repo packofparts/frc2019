@@ -20,10 +20,10 @@ public class RobotMap {
   // public static int leftMotor = 1;
   // public static int rightMotor = 2;
   public static int pcmcan = 5;
-  public static int leftFront = 1;
-  public static int leftRear = 2; //encoder
-  public static int rightFront = 3;
-  public static int rightRear = 4; //encoder
+  public static int rightFront = 1;
+  public static int rightRear = 2; //encoder
+  public static int leftFront = 3;
+  public static int leftRear = 4; //encoder
   public static int pneumaticTest = 0;
   
   // If you are using multiple modules, make sure to define both the port

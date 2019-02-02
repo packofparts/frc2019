@@ -12,7 +12,8 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.ToggleDriveCommand;
-import frc.robot.commands.TurnByCommand;
+import frc.robot.commands.ToggleDriveDirection;
+
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -21,9 +22,16 @@ import frc.robot.commands.TurnByCommand;
 
 public class OI {
   public OI() {
+    //X button toggles drive command
     JoystickButton xButton = new JoystickButton(driveJoyStick, 3);
     xButton.toggleWhenActive(new ToggleDriveCommand());
     xButton.close();
+    
+    //Y button toggles drive direction
+    JoystickButton yButton = new JoystickButton(driveJoyStick, 4);
+    yButton.toggleWhenActive(new ToggleDriveDirection());
+    yButton.close();
+
 
     JoystickButton leftBumper = new JoystickButton(driveJoyStick, 5);
     leftBumper.whenPressed(new TurnByCommand(-80));
