@@ -19,7 +19,6 @@ public class UltrasonicSubsystem extends Subsystem {
   protected double longnumber;
   AnalogInput frontUltrasonic = new AnalogInput(3);
   AnalogInput rearUltrasonic = new AnalogInput(2);
-  public XboxController driveJoyStick = new XboxController(0);
   
   public UltrasonicSubsystem() {
     longnumber = 105.02223949561687610657684501447;
