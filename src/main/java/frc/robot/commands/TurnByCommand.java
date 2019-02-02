@@ -11,46 +11,66 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Timer;
 
 public class TurnByCommand extends Command {
-  private int m_turnDegree = 0;
+  private double m_turnDegree = 0;
+  private double m_targetDegree = 0;
+  private boolean m_heading = true;
+  private double startingDegree = 0;
+  private boolean is_Finished = false;
+  private double delta = 1;
   boolean arcadeDrive;
-  private final AHRS navX;
 
-  public TurnByCommand(int turnDegree) {
+  public TurnByCommand(double turnDegree) {//, boolean addheading) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    is_Finished = false;
     m_turnDegree = turnDegree;
-    navX = new AHRS(SPI.Port.kMXP);
     requires(Robot.driver);
   }
 
-  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
     Robot.driver.treads.setSafetyEnabled(false);
-  }
-
-  public double getHeading() {
-    double heading = navX.getAngle();
-    if (heading < 0) {
-        return 360 - (Math.abs(heading) % 360);
-    } else {
-        return Math.abs(heading) % 360;
+    Robot.driver.resetGyro();
+    startingDegree = Robot.driver.getHeading();
+    m_targetDegree = m_turnDegree + startingDegree;
+    if (m_targetDegree > 360) {
+      m_targetDegree -= 360;
+    }
+    else if (m_targetDegree < 0) {
+      m_targetDegree += 360;
     }
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (m_turnDegree > 0) {
-      while (m_turnDegree < getHeading()) {
-        Robot.driver.arcadeDrive(0, 0.7);
-      }
+    is_Finished = false;
+    System.out.print("hi shrimp flamingos oo oo oo if you're");
+    double m_currentDegree = Robot.driver.getHeading();
+    double m_speed = ((m_targetDegree-m_currentDegree)/m_turnDegree);
+    if (m_speed > 1.0) {
+      m_speed = 1.0;
     }
+    if (m_speed < 0.5) {
+      m_speed = 0.5;
+    }
+    
+    if (m_turnDegree > 0) {
+      Robot.driver.arcadeDrive(0, -m_speed);
+      if(m_targetDegree-m_currentDegree > -delta && m_targetDegree-m_currentDegree < delta ) {
+         Robot.driver.arcadeDrive(0, 0);
+         Robot.driver.stop();
+         is_Finished = true;
+        }
+      }
     else {
-      while (m_turnDegree > getHeading()) {
-        Robot.driver.arcadeDrive(0, -0.7);
+      Robot.driver.arcadeDrive(0, m_speed);
+      if(m_targetDegree-m_currentDegree > -delta && m_targetDegree-m_currentDegree < delta ) {
+        Robot.driver.arcadeDrive(0, 0);
+        Robot.driver.stop();
+       is_Finished = true;
       }
     }
   }
@@ -58,7 +78,7 @@ public class TurnByCommand extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return is_Finished;
   }
 
   // Called once after isFinished returns true

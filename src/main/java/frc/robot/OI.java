@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.ToggleDriveCommand;
 import frc.robot.commands.ToggleDriveDirection;
@@ -34,9 +35,13 @@ public class OI {
     yButton.close();
 
 
-    //JoystickButton leftBumper = new JoystickButton(driveJoyStick, 5);
-    //leftBumper.whenPressed(new TurnByCommand(90));
-    //leftBumper.close();
+    JoystickButton leftBumper = new JoystickButton(driveJoyStick, 5);
+    leftBumper.whenPressed(new TurnByCommand(-80));
+    leftBumper.close();
+
+    JoystickButton rightBumper = new JoystickButton(driveJoyStick, 6);
+    rightBumper.whenPressed(new TurnByCommand(80));
+    rightBumper.close();
   }
  
  
@@ -63,6 +68,12 @@ public class OI {
   public double getLeftYDrive() {
     return (driveJoyStick.getY(Hand.kLeft));
   }
+  public double getLeftTrigger() {
+    return (driveJoyStick.getTriggerAxis(Hand.kLeft));
+  }
+  public double getRightTrigger() {
+    return (driveJoyStick.getTriggerAxis(Hand.kLeft));
+  }
   public boolean getAGame() {
     return (gameJoyStick.getAButton());
   }
@@ -81,7 +92,6 @@ public class OI {
   public int getDpad() {
     return (driveJoyStick.getPOV());
   }
-
 
   
   //// TRIGGERING COMMANDS WITH BUTTONS
