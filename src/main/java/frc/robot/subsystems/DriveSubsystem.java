@@ -86,8 +86,8 @@ public void resetGyro() {
     //SmartDashboard.putNumber("Drive/Encoders/Encoder R", this.getEncoderRight());
     //SmartDashboard.putNumber("Drive/Encoders/Encoder L", this.getEncoderLeft());
    // SmartDashboard.putNumber("Drive/Encoders/left/raw", leftFront.getRaw());
-   // SmartDashboard.putNumber("/right/raw", rightRaw);
-   SmartDashboard.putNumber("Drive/Gyro/Angle", getHeading());
+    // SmartDashboard.putNumber("/right/raw", rightRaw);
+    SmartDashboard.putNumber("Drive/Gyro/Angle", getHeading());
   }
 
   @Override
