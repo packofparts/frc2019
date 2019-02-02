@@ -17,15 +17,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
-<<<<<<< HEAD
 import frc.robot.commands.ToggleDriveCommand;
 import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.commands.TurnByCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
-=======
-//import frc.robot.commands.ToggleDriveCommand;
->>>>>>> 144e05b0290bf67a5b580f7c1dc447ab9dfc3d14
 
 public class DriveSubsystem extends Subsystem {
   public static WPI_TalonSRX leftFront;
@@ -79,7 +75,6 @@ public void resetGyro() {
 }
   @Override
   public void periodic() {
-<<<<<<< HEAD
     //SmartDashboard.putNumber("/left/raw", 1);
    // SmartDashboard.putNumber("/right/raw", rightRaw);
 
@@ -90,7 +85,7 @@ public void resetGyro() {
     SmartDashboard.putNumber("Drive/Gyro/Angle", getHeading());
 
     
-    if (Robot.m_oi.getRightTrigger() > 0.7) {
+/*    if (Robot.m_oi.getRightTrigger() > 0.7) {
       if (Robot.driver.getHeading() > 0 && Robot.driver.getHeading() < 90) {
         Scheduler.getInstance().add(new TurnByCommand(90-(Robot.driver.getHeading()-10)));
       }
@@ -103,11 +98,7 @@ public void resetGyro() {
       if (Robot.driver.getHeading() > 270 && Robot.driver.getHeading() < 360) {
         Scheduler.getInstance().add(new TurnByCommand((360-Robot.driver.getHeading()-10)));
       }
-    }
-=======
-   SmartDashboard.putNumber("Drive/Gyro/Angle", getHeading());
-   SmartDashboard.putNumber("Drive/Encoders/Right", rightRear.getSelectedSensorPosition());
->>>>>>> 144e05b0290bf67a5b580f7c1dc447ab9dfc3d14
+    }*/
   }
    //System.out.println(rightRear.getSelectedSensorPosition(0));
 
