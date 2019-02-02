@@ -36,6 +36,7 @@ public class DriveSubsystem extends Subsystem {
   public double leftRaw;
   public double rightRaw;
   private final AHRS navX;
+  public static boolean abort = false;
 /**
    * Add your docs here.
    */
@@ -118,7 +119,7 @@ public void resetGyro() {
   } 
   
   public void arcadeDrive(double forward, double turn) {
-
+    if(abort == false) {
     if(isBackward) {
       treads.arcadeDrive(forward, turn);
     } else {
@@ -127,11 +128,19 @@ public void resetGyro() {
     //FORWARD: treads.arcadeDrive(-forward, turn);
     
   }
+}
   public void flipDrive() {
     isBackward = !isBackward;
   }
 
   public void stop() {
     treads.stopMotor();
+  }
+  public void emergencyStop() {
+    treads.stopMotor();
+    abort = true;
+  }
+  public void unabort() {
+    abort = false;
   }
 }

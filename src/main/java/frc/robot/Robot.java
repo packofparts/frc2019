@@ -116,6 +116,7 @@ public class Robot extends TimedRobot {
     }
     driver.treads.setSafetyEnabled(true);
     Scheduler.getInstance().add(new ChezyDriveCommand());
+    driver.unabort();
   }
 
   /**

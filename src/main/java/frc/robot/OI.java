@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 //import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.ABORT;
 import frc.robot.commands.DriveByCommand;
 import frc.robot.commands.PneumaticsToggleCommand;
 import frc.robot.commands.ToggleDriveCommand;
@@ -31,9 +32,13 @@ public class OI {
     JoystickButton driveXButton = new JoystickButton(driveJoyStick, 3);
     driveXButton.toggleWhenActive(new ToggleDriveCommand());
     driveXButton.close();
-    /*JoystickButton driveBButton = new JoystickButton(driveJoyStick, 2);
-    driveBButton.toggleWhenActive(new testingCommandGroup());
-    driveBButton.close(); */
+    JoystickButton driveMenuButton = new JoystickButton(driveJoyStick, 8);
+    driveMenuButton.toggleWhenActive(new testingCommandGroup());
+    driveMenuButton.close(); 
+
+    JoystickButton driveSelectButton = new JoystickButton(driveJoyStick, 7);
+    driveSelectButton.toggleWhenActive(new ABORT());
+    driveSelectButton.close();
     
     JoystickButton driveAButton = new JoystickButton(driveJoyStick, 1);
     driveAButton.toggleWhenActive(new DriveByCommand(5));
