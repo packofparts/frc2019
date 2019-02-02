@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 //import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.PneumaticsToggleCommand;
 import frc.robot.commands.ToggleDriveCommand;
 import frc.robot.commands.ToggleDriveDirection;
 import frc.robot.commands.TurnByCommand;
@@ -24,16 +25,16 @@ import frc.robot.commands.TurnByCommand;
 public class OI {
   public OI() {
     //X button toggles drive command
-    JoystickButton xButton = new JoystickButton(driveJoyStick, 3);
-    xButton.toggleWhenActive(new ToggleDriveCommand());
-    xButton.close();
+    JoystickButton driveXButton = new JoystickButton(driveJoyStick, 3);
+    driveXButton.toggleWhenActive(new ToggleDriveCommand());
+    driveXButton.close();
     
 
 
     //Y button toggles drive direction
-    JoystickButton yButton = new JoystickButton(driveJoyStick, 4);
-    yButton.toggleWhenActive(new ToggleDriveDirection());
-    yButton.close();
+    JoystickButton driveYButton = new JoystickButton(driveJoyStick, 4);
+    driveYButton.toggleWhenActive(new ToggleDriveDirection());
+    driveYButton.close();
 
 
     JoystickButton leftBumper = new JoystickButton(driveJoyStick, 5);
@@ -43,6 +44,23 @@ public class OI {
     JoystickButton rightBumper = new JoystickButton(driveJoyStick, 6);
     rightBumper.whenPressed(new TurnByCommand(80));
     rightBumper.close();
+
+    //This defines ABXY for game controller to toggle solenoids
+    JoystickButton gameAButton = new JoystickButton(gameJoyStick, 1);
+    gameAButton.toggleWhenActive(new PneumaticsToggleCommand(1));
+    gameAButton.close();
+    JoystickButton gameBButton = new JoystickButton(gameJoyStick, 2);
+    gameBButton.toggleWhenActive(new PneumaticsToggleCommand(2));
+    gameBButton.close();
+    JoystickButton gameXButton = new JoystickButton(gameJoyStick, 3);
+    gameXButton.toggleWhenActive(new PneumaticsToggleCommand(3));
+    gameXButton.close();
+    JoystickButton gameYButton = new JoystickButton(gameJoyStick, 4);
+    gameYButton.toggleWhenActive(new PneumaticsToggleCommand(4));
+    gameYButton.close();
+
+
+    
   }
  
  
