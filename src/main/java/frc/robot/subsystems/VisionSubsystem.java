@@ -36,8 +36,8 @@ public class VisionSubsystem extends Subsystem {
         CameraServer.getInstance().startAutomaticCapture();
      //   CameraServer.getInstance().getVideo();
      //   CameraServer.getInstance().putVideo("MM", 1080, 720);
-     UsbCamera usbCamera = new UsbCamera("FLAMingo", 1);
-     MjpegServer mjpegServer1 = new MjpegServer("serve_USB Camera 0", 1181);
+   //  UsbCamera usbCamera = new UsbCamera("FLAMingo", 1);
+   //  MjpegServer mjpegServer1 = new MjpegServer("serve_USB Camera 0", 1181);
     }
 
     @Override

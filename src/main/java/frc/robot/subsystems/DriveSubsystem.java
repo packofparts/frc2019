@@ -31,6 +31,7 @@ public class DriveSubsystem extends Subsystem {
   public DifferentialDrive treads;
   public XboxController m_mainJoyStick;
   public static boolean isBackward;
+  public static String defaultDrive = "ChezyDriveCommand";
 
   public double leftRaw;
   public double rightRaw;
@@ -78,12 +79,12 @@ public void resetGyro() {
     //SmartDashboard.putNumber("/left/raw", 1);
    // SmartDashboard.putNumber("/right/raw", rightRaw);
 
-    //SmartDashboard.putNumber("Drive/Encoders/Encoder R", this.getEncoderRight());
-    //SmartDashboard.putNumber("Drive/Encoders/Encoder L", this.getEncoderLeft());
+    SmartDashboard.putNumber("Drive/Encoders/Encoder R", this.getEncoderRight());
+    SmartDashboard.putNumber("Drive/Encoders/Encoder L", this.getEncoderLeft());
    // SmartDashboard.putNumber("Drive/Encoders/left/raw", leftFront.getRaw());
     // SmartDashboard.putNumber("/right/raw", rightRaw);
     SmartDashboard.putNumber("Drive/Gyro/Angle", getHeading());
-
+  //  System.out.println(Robot.m_oi.getTriggerDrive());
     
 /*    if (Robot.m_oi.getRightTrigger() > 0.7) {
       if (Robot.driver.getHeading() > 0 && Robot.driver.getHeading() < 90) {

@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 //import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.DriveByCommand;
 import frc.robot.commands.PneumaticsToggleCommand;
 import frc.robot.commands.ToggleDriveCommand;
 import frc.robot.commands.ToggleDriveDirection;
@@ -30,7 +31,13 @@ public class OI {
     driveXButton.toggleWhenActive(new ToggleDriveCommand());
     driveXButton.close();
     
+    JoystickButton driveAButton = new JoystickButton(driveJoyStick, 1);
+    driveAButton.toggleWhenActive(new DriveByCommand(5));
+    driveAButton.close();
 
+    JoystickButton driveBButton = new JoystickButton(driveJoyStick, 2);
+    driveBButton.toggleWhenActive(new DriveByCommand(-5));
+    driveBButton.close();
 
     //Y button toggles drive direction
     JoystickButton driveYButton = new JoystickButton(driveJoyStick, 4);
@@ -103,7 +110,11 @@ public class OI {
     return (driveJoyStick.getXButtonReleased());
   }
   public double getTriggerDrive() {
-    return (driveJoyStick.getTriggerAxis(Hand.kRight) - driveJoyStick.getTriggerAxis(Hand.kLeft));
+    double RightAxis = driveJoyStick.getTriggerAxis(Hand.kRight);
+    if (driveJoyStick.getTriggerAxis(Hand.kRight) < 0.3 && driveJoyStick.getTriggerAxis(Hand.kRight) > 0.1) {
+      RightAxis += 0.3;
+    }
+    return ((driveJoyStick.getTriggerAxis(Hand.kRight)) - (driveJoyStick.getTriggerAxis(Hand.kLeft)));
   }
   public boolean getYClickGame() {
     return (gameJoyStick.getYButtonReleased());
