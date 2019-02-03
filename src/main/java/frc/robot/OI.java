@@ -32,8 +32,9 @@ public class OI {
     JoystickButton driveXButton = new JoystickButton(driveJoyStick, 3);
     driveXButton.toggleWhenActive(new ToggleDriveCommand());
     driveXButton.close();
+
     JoystickButton driveMenuButton = new JoystickButton(driveJoyStick, 8);
-    driveMenuButton.toggleWhenActive(new testingCommandGroup());
+    //driveMenuButton.toggleWhenActive(new testingCommandGroup());
     driveMenuButton.close(); 
 
     JoystickButton driveSelectButton = new JoystickButton(driveJoyStick, 7);
@@ -74,6 +75,7 @@ public class OI {
     JoystickButton gameYButton = new JoystickButton(gameJoyStick, 4);
     gameYButton.toggleWhenActive(new PneumaticsToggleCommand(4));
     gameYButton.close();
+
 
 
     
@@ -130,6 +132,10 @@ public class OI {
   }
   public int getDpad() {
     return (driveJoyStick.getPOV());
+  }
+
+  public boolean getMenuDrive() {
+    return (driveJoyStick.getStartButtonReleased());
   }
 
   
