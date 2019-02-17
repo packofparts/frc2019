@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ChezyDriveCommand;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.Clicker;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.GameSubsystem;
@@ -57,7 +58,11 @@ public class Robot extends TimedRobot {
   public static GameSubsystem gamer;
   public static UltrasonicSubsystem ultrasonic;
   public static PneumaticsSubsystem pneumaticsController;
+<<<<<<< HEAD
   boolean started = false;
+=======
+  public static Clicker clickable;
+>>>>>>> fe10feca4373a265c8bf3edecf3a8bc63426260d
   
  // private final CameraServer cameraServer;
 
@@ -71,7 +76,7 @@ public class Robot extends TimedRobot {
   public Robot() {
     ultrasonic = new UltrasonicSubsystem();
     camera = new VisionSubsystem();
-
+    clickable = new Clicker();
     driver = new DriveSubsystem();
     gamer = new GameSubsystem();
     pneumaticsController = new PneumaticsSubsystem(); 
@@ -127,6 +132,7 @@ public class Robot extends TimedRobot {
     }
     driver.treads.setSafetyEnabled(true);
     Scheduler.getInstance().add(new ChezyDriveCommand());
+    driver.unabort();
   }
 
   /**

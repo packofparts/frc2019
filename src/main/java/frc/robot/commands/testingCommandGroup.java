@@ -24,16 +24,16 @@ public class testingCommandGroup extends CommandGroup {
 
 
     requires(Robot.driver);
-    /*addSequential(new DriveForTimeCommand(2, 1));
-    //addSequential(new TurnByCommand(180));
-    Timer.delay(1);
+
+    addSequential(new DriveForTimeCommand(2, .75));
     addSequential(new PneumaticsToggleCommand(1));
-    addSequential(new DriveForTimeCommand(2, -1));
-    Timer.delay(1);
-    addSequential(new TurnByCommand(170));
-    Timer.delay(1);
-    addSequential(new TurnByCommand(170));
-    System.out.println("DONE!!!"); */
+    addSequential(new ToggleDriveDirection());
+    addSequential(new DriveForTimeCommand(2, .75));
+    addSequential(new ToggleDriveDirection());
+    
+    //addSequential(new DriveForTimeCommand(1, -.5));
+    /*addSequential(new TurnByCommand(170));
+    addSequential(new TurnByCommand(170));*/
 
     
     

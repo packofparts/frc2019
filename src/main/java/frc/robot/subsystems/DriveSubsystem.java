@@ -39,7 +39,11 @@ public class DriveSubsystem extends Subsystem {
   public double leftRaw;
   public double rightRaw;
   private final AHRS navX;
+<<<<<<< HEAD
 
+=======
+  public static boolean abort = false;
+>>>>>>> fe10feca4373a265c8bf3edecf3a8bc63426260d
 /**
    * Add your docs here.
    */
@@ -109,7 +113,7 @@ public void resetGyro() {
   } 
   
   public void arcadeDrive(double forward, double turn) {
-
+    if(abort == false) {
     if(isBackward) {
       treads.arcadeDrive(forward, turn);
     } else {
@@ -117,6 +121,7 @@ public void resetGyro() {
     }
     //FORWARD: treads.arcadeDrive(-forward, turn);
   }
+<<<<<<< HEAD
 
   public void strutDrive(){
     if (Robot.gamer.Mode == 0) {
@@ -124,11 +129,21 @@ public void resetGyro() {
     }
   }
 
+=======
+}
+>>>>>>> fe10feca4373a265c8bf3edecf3a8bc63426260d
   public void flipDrive() {
     isBackward = !isBackward;
   }
 
   public void stop() {
     treads.stopMotor();
+  }
+  public void emergencyStop() {
+    treads.stopMotor();
+    abort = true;
+  }
+  public void unabort() {
+    abort = false;
   }
 }
