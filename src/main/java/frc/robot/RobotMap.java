@@ -24,6 +24,9 @@ public class RobotMap {
   public static int rightRear = 2; //encoder
   public static int leftFront = 3;
   public static int leftRear = 4; //encoder
+  public static int elevator = 6;
+  public static int strutback = 7;
+  public static int intake = 8;
   public static int solenoid1 = 1;
   public static int solenoid2 = 2;
   public static int solenoid3 = 3;

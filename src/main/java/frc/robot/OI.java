@@ -13,10 +13,12 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.AbortCommand;
 import frc.robot.commands.DriveByCommand;
+import frc.robot.commands.HonkCommand;
 import frc.robot.commands.PneumaticsToggleCommand;
 import frc.robot.commands.ToggleDriveCommand;
 import frc.robot.commands.ToggleDriveDirection;
 import frc.robot.commands.TurnByCommand;
+import frc.robot.commands.ElevatorMoveCommand;
 import frc.robot.commands.testingCommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
@@ -35,6 +37,7 @@ public class OI {
     JoystickButton driveXButton = new JoystickButton(driveJoyStick, 3);
     driveXButton.toggleWhenPressed(new ToggleDriveCommand());
  //   driveXButton.close();
+
    // Scheduler.getInstance().add(new ToggleDriveCommand());
     /*JoystickButton driveBButton = new JoystickButton(driveJoyStick, 2);
     driveBButton.toggleWhenActive(new testingCommandGroup());
@@ -47,6 +50,10 @@ public class OI {
     JoystickButton driveBButton = new JoystickButton(driveJoyStick, 2);
     driveBButton.toggleWhenActive(new DriveByCommand(-5));
     driveBButton.close();
+
+    JoystickButton honkButton = new JoystickButton(driveJoyStick, 10);
+    honkButton.toggleWhenActive(new HonkCommand());
+    honkButton.close();
 
     //Y button toggles drive direction
     JoystickButton driveYButton = new JoystickButton(driveJoyStick, 4);
@@ -75,20 +82,6 @@ public class OI {
    //   driveJoyStick = gameJoyStick;
    //   gameJoyStick = driveJoyStick;
     } 
-
-    //This defines ABXY for game controller to toggle solenoids
-    JoystickButton gameAButton = new JoystickButton(gameJoyStick, 1);
-    gameAButton.toggleWhenActive(new PneumaticsToggleCommand(1));
-    gameAButton.close();
-    JoystickButton gameBButton = new JoystickButton(gameJoyStick, 2);
-    gameBButton.toggleWhenActive(new PneumaticsToggleCommand(2));
-    gameBButton.close();
-    JoystickButton gameXButton = new JoystickButton(gameJoyStick, 3);
-    gameXButton.toggleWhenActive(new PneumaticsToggleCommand(3));
-    gameXButton.close();
-    JoystickButton gameYButton = new JoystickButton(gameJoyStick, 4);
-    gameYButton.toggleWhenActive(new PneumaticsToggleCommand(4));
-    gameYButton.close(); 
   }
  
  
@@ -110,14 +103,23 @@ public class OI {
   public double getRightYDrive() {
     return (driveJoyStick.getY(Hand.kRight));
   }
+  public double getRightYGame() {
+    return (gameJoyStick.getY(Hand.kRight));
+  }
   public double getLeftYDrive() {
     return (driveJoyStick.getY(Hand.kLeft));
+  }
+  public double getLeftXDrive() {
+    return (driveJoyStick.getX(Hand.kLeft));
   }
   public double getLeftTrigger() {
     return (driveJoyStick.getTriggerAxis(Hand.kLeft));
   }
   public double getRightTrigger() {
     return (driveJoyStick.getTriggerAxis(Hand.kRight));
+  }
+  public double getRightTriggerGame() {
+    return (gameJoyStick.getTriggerAxis(Hand.kRight));
   }
   public boolean getAGame() {
     return (gameJoyStick.getAButton());
@@ -135,11 +137,21 @@ public class OI {
     }
     return ((driveJoyStick.getTriggerAxis(Hand.kRight)) - (driveJoyStick.getTriggerAxis(Hand.kLeft)));
   }
+  public double getGameTriggerDrive() {
+    double RightAxis = gameJoyStick.getTriggerAxis(Hand.kRight);
+    if (gameJoyStick.getTriggerAxis(Hand.kRight) < 0.3 && gameJoyStick.getTriggerAxis(Hand.kRight) > 0.1) {
+      RightAxis += 0.3;
+    }
+    return ((gameJoyStick.getTriggerAxis(Hand.kRight)) - (gameJoyStick.getTriggerAxis(Hand.kLeft)));
+  }
   public boolean getYClickGame() {
     return (gameJoyStick.getYButtonReleased());
   }
   public int getDpad() {
     return (driveJoyStick.getPOV());
+  }
+  public int getDpadGame() {
+    return (gameJoyStick.getPOV());
   }
 
   

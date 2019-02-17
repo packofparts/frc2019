@@ -9,8 +9,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 
 public class ChezyDriveCommand extends Command {
+  float yomamadelta = 50;
+  double yomama = 0;
+  double yolastmama = 0;
+  boolean yomamaFirstTime = false;
   public ChezyDriveCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -27,10 +32,47 @@ public class ChezyDriveCommand extends Command {
   @Override
   protected void execute() {
     double forward = -Robot.m_oi.getLeftYDrive();
-    double turn = -Robot.m_oi.getRightXDrive();
+    double turn = -Robot.m_oi.getRightXDrive() + yomama;
     Robot.driver.arcadeDrive(forward, turn);
-    //System.out.println("ChezyDrive is successfully Chezying");
 
+/*    if (Robot.m_oi.getRightXDrive() == 0 && Robot.m_oi.getLeftYDrive() != 0) {
+      float difference = Robot.driver.rightFront.getSelectedSensorVelocity() - Robot.driver.leftFront.getSelectedSensorVelocity();
+      SmartDashboard.putNumber("Drive/Encoders/1", difference*forward); 
+      SmartDashboard.putNumber("Drive/Encoders/2", difference);
+      if(difference > yomamadelta)
+      {
+        yomama += 0.05;
+      }
+      else if (difference < -yomamadelta)
+      {
+        yomama -= 0.05;
+      }
+    }
+  /*  if ((Robot.m_oi.getRightXDrive() < 0.1 && Robot.m_oi.getRightXDrive() > -0.1) && (forward > 0.1 || forward < -0.1)) {
+      if (yomamaFirstTime) {
+        Robot.driver.resetGyro();
+      }
+
+      yolastmama = Robot.driver.getHeading();
+      double yomamasangle = Robot.driver.getHeading();
+      System.out.println(yomamasangle);
+
+      if (Robot.driver.getHeading() > 180) {
+        yomamasangle = -(360-Robot.driver.getHeading());
+      }
+
+      if (yomamasangle < yolastmama){
+        yomama -= 0.1;
+      }
+      if (yomamasangle > yolastmama) {
+        yomama += 0.1;
+      } 
+      yomamaFirstTime = false;
+    }
+    else {
+      yomamaFirstTime = true;
+    } */
+    //System.out.println("ChezyDrive is successfully Chezying");
   }
 
   // Make this return true when this Command no longer needs to run execute()

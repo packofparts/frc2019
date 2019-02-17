@@ -44,7 +44,7 @@ public class UltrasonicSubsystem extends Subsystem {
   //  Timer.delay(0.1);
   }
 
-
+//System.out.println("Giraffe was here");)
   @Override
   protected void initDefaultCommand() {
   }
