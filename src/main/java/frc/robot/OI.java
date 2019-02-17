@@ -11,11 +11,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 //import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-<<<<<<< HEAD
 import frc.robot.commands.AbortCommand;
-=======
 import frc.robot.commands.ABORT;
->>>>>>> fe10feca4373a265c8bf3edecf3a8bc63426260d
 import frc.robot.commands.DriveByCommand;
 import frc.robot.commands.HonkCommand;
 import frc.robot.commands.PneumaticsToggleCommand;
@@ -39,15 +36,6 @@ public class OI {
   public OI() {
     //X button toggles drive command
     JoystickButton driveXButton = new JoystickButton(driveJoyStick, 3);
-<<<<<<< HEAD
-    driveXButton.toggleWhenPressed(new ToggleDriveCommand());
- //   driveXButton.close();
-
-   // Scheduler.getInstance().add(new ToggleDriveCommand());
-    /*JoystickButton driveBButton = new JoystickButton(driveJoyStick, 2);
-    driveBButton.toggleWhenActive(new testingCommandGroup());
-    driveBButton.close(); */
-=======
     driveXButton.toggleWhenActive(new ToggleDriveCommand());
     driveXButton.close();
 
@@ -58,7 +46,6 @@ public class OI {
     JoystickButton driveSelectButton = new JoystickButton(driveJoyStick, 7);
     driveSelectButton.toggleWhenActive(new ABORT());
     driveSelectButton.close();
->>>>>>> fe10feca4373a265c8bf3edecf3a8bc63426260d
     
     JoystickButton driveAButton = new JoystickButton(driveJoyStick, 1);
     driveAButton.toggleWhenActive(new DriveByCommand(5));
@@ -85,7 +72,6 @@ public class OI {
     rightBumper.whenPressed(new TurnByCommand(80));
     rightBumper.close();
 
-<<<<<<< HEAD
     if(original) {
       JoystickButton mmmtasty = new JoystickButton(gameJoyStick, 7);
       mmmtasty.whenPressed(new AbortCommand());
@@ -100,25 +86,6 @@ public class OI {
    //   driveJoyStick = gameJoyStick;
    //   gameJoyStick = driveJoyStick;
     } 
-=======
-    //This defines ABXY for game controller to toggle solenoids
-    JoystickButton gameAButton = new JoystickButton(gameJoyStick, 1);
-    gameAButton.toggleWhenActive(new PneumaticsToggleCommand(1));
-    gameAButton.close();
-    JoystickButton gameBButton = new JoystickButton(gameJoyStick, 2);
-    gameBButton.toggleWhenActive(new PneumaticsToggleCommand(2));
-    gameBButton.close();
-    JoystickButton gameXButton = new JoystickButton(gameJoyStick, 3);
-    gameXButton.toggleWhenActive(new PneumaticsToggleCommand(3));
-    gameXButton.close();
-    JoystickButton gameYButton = new JoystickButton(gameJoyStick, 4);
-    gameYButton.toggleWhenActive(new PneumaticsToggleCommand(4));
-    gameYButton.close();
-
-
-
-    
->>>>>>> fe10feca4373a265c8bf3edecf3a8bc63426260d
   }
  
  

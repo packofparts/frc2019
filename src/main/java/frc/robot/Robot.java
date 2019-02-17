@@ -58,11 +58,7 @@ public class Robot extends TimedRobot {
   public static GameSubsystem gamer;
   public static UltrasonicSubsystem ultrasonic;
   public static PneumaticsSubsystem pneumaticsController;
-<<<<<<< HEAD
   boolean started = false;
-=======
-  public static Clicker clickable;
->>>>>>> fe10feca4373a265c8bf3edecf3a8bc63426260d
   
  // private final CameraServer cameraServer;
 
@@ -76,7 +72,6 @@ public class Robot extends TimedRobot {
   public Robot() {
     ultrasonic = new UltrasonicSubsystem();
     camera = new VisionSubsystem();
-    clickable = new Clicker();
     driver = new DriveSubsystem();
     gamer = new GameSubsystem();
     pneumaticsController = new PneumaticsSubsystem(); 
@@ -132,7 +127,6 @@ public class Robot extends TimedRobot {
     }
     driver.treads.setSafetyEnabled(true);
     Scheduler.getInstance().add(new ChezyDriveCommand());
-    driver.unabort();
   }
 
   /**
