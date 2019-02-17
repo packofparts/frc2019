@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 //import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.AbortCommand;
 import frc.robot.commands.DriveByCommand;
 import frc.robot.commands.PneumaticsToggleCommand;
 import frc.robot.commands.ToggleDriveCommand;
@@ -26,11 +27,15 @@ import edu.wpi.first.wpilibj.command.Scheduler;
  */
 
 public class OI {
+  public boolean original = true;
+  public XboxController driveJoyStick = new XboxController(0);
+  public XboxController gameJoyStick = new XboxController(1);
   public OI() {
     //X button toggles drive command
     JoystickButton driveXButton = new JoystickButton(driveJoyStick, 3);
-    driveXButton.toggleWhenActive(new ToggleDriveCommand());
-    driveXButton.close();
+    driveXButton.toggleWhenPressed(new ToggleDriveCommand());
+ //   driveXButton.close();
+   // Scheduler.getInstance().add(new ToggleDriveCommand());
     /*JoystickButton driveBButton = new JoystickButton(driveJoyStick, 2);
     driveBButton.toggleWhenActive(new testingCommandGroup());
     driveBButton.close(); */
@@ -56,6 +61,21 @@ public class OI {
     rightBumper.whenPressed(new TurnByCommand(80));
     rightBumper.close();
 
+    if(original) {
+      JoystickButton mmmtasty = new JoystickButton(gameJoyStick, 7);
+      mmmtasty.whenPressed(new AbortCommand());
+      mmmtasty.close();
+   //   driveJoyStick = gameJoyStick;
+   //   gameJoyStick = driveJoyStick;
+    }
+    if(original == false) {
+      JoystickButton mmmtasty = new JoystickButton(gameJoyStick, 7);
+      mmmtasty.whenPressed(new AbortCommand());
+      mmmtasty.close();
+   //   driveJoyStick = gameJoyStick;
+   //   gameJoyStick = driveJoyStick;
+    } 
+
     //This defines ABXY for game controller to toggle solenoids
     JoystickButton gameAButton = new JoystickButton(gameJoyStick, 1);
     gameAButton.toggleWhenActive(new PneumaticsToggleCommand(1));
@@ -68,10 +88,7 @@ public class OI {
     gameXButton.close();
     JoystickButton gameYButton = new JoystickButton(gameJoyStick, 4);
     gameYButton.toggleWhenActive(new PneumaticsToggleCommand(4));
-    gameYButton.close();
-
-
-    
+    gameYButton.close(); 
   }
  
  
@@ -86,8 +103,6 @@ public class OI {
   // There are a few additional built in buttons you can use. Additionally,
   // by subclassing Button you can create custom triggers and bind those to
   // commands the same as any other Button.
-  public XboxController driveJoyStick = new XboxController(0);
-  public XboxController gameJoyStick = new XboxController(1);
   
   public double getRightXDrive() {
     return (driveJoyStick.getX(Hand.kRight));

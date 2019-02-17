@@ -128,9 +128,9 @@ public class Robot extends TimedRobot {
     while (isOperatorControl() && isEnabled()) {
       Scheduler.getInstance().run();
       Timer.delay(0.005);
-      
+      System.out.println(Robot.m_oi.original);
     }
-    
+        
   }
 
   @Override
