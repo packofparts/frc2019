@@ -91,7 +91,7 @@ public void resetGyro() {
   public void periodic() {
     //SmartDashboard.putNumber("/left/raw", 1);
    // SmartDashboard.putNumber("/right/raw", rightRaw);
-    strutDrive();
+   // strutDrive();
     SmartDashboard.putNumber("Drive/Encoders/Encoder R", this.getEncoderRight());
     SmartDashboard.putNumber("Drive/Encoders/Encoder L", this.getEncoderLeft());
     SmartDashboard.putNumber("Drive/Encoders/Encoder E", Robot.gamer.getElevatorEncoder());
@@ -123,11 +123,11 @@ public void resetGyro() {
     //FORWARD: treads.arcadeDrive(-forward, turn);
   }
 
-  public void strutDrive(){
-    if (Robot.gamer.Mode == 0) {
-      rearstrut.set(-Robot.m_oi.getGameTriggerDrive());
-    }
-  }
+  //public void strutDrive(){
+    //if (Robot.gamer.Mode == 0) {
+     // rearstrut.set(-Robot.m_oi.getGameTriggerDrive());
+    //}
+  //}
 
   public void flipDrive() {
     isBackward = !isBackward;
