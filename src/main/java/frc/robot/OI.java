@@ -58,6 +58,10 @@ public class OI {
     honkButton.toggleWhenActive(new HonkCommand());
     honkButton.close();
 
+   // JoystickButton honkButton = new JoystickButton(driveJoyStick, 10);
+   // honkButton.toggleWhenActive(new HonkCommand());
+   // honkButton.close();
+
     //Y button toggles drive direction
     JoystickButton driveYButton = new JoystickButton(driveJoyStick, 4);
     driveYButton.toggleWhenActive(new ToggleDriveDirection());
