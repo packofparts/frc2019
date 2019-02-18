@@ -7,61 +7,44 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.Command;
 
-
-public class ToggleDriveCommand extends Command {
-
-  boolean isDone;
-
-  public ToggleDriveCommand() {
+public class AbortCommand extends Command {
+  public AbortCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
-  
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    System.out.println("Now checking for dpad input");
-    isDone = false;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-   if(Robot.m_oi.getDpad() == -1) {
-    
-    } 
-   else if(Robot.m_oi.getDpad() == 0) {
-      Scheduler.getInstance().add(new ArcadeDriveCommand());
-      isDone = true;
-    }  
-   else if(Robot.m_oi.getDpad() == 90) {
-      Scheduler.getInstance().add(new ChezyDriveCommand());
-      isDone = true;
-    }  
-   else if(Robot.m_oi.getDpad() == 180) {
-    Scheduler.getInstance().add(new ForzaDriveCommand());
-    isDone = true;
-    }  
-   else if(Robot.m_oi.getDpad() == 270) {
-      Scheduler.getInstance().add(new CallumDriveCommand());
-      isDone = true;
-    }
+    Robot.driver.arcadeDrive(0, 0);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isDone;
+    return true;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+ /*   if(Robot.m_oi.original) {
+      Robot.m_oi.original = false;
+    }
+    else {
+      Robot.m_oi.original = true;
+    }*/
+    Robot.m_oi.driveJoyStick = null;
+    Robot.driver.arcadeDrive(0, 0);
+    Robot.driver.stop();
   }
 
   // Called when another command which requires one or more of the same

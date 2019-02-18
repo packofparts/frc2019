@@ -19,6 +19,7 @@ import frc.robot.commands.ChezyDriveCommand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.GameSubsystem;
 import frc.robot.subsystems.PneumaticsSubsystem;
 import frc.robot.subsystems.UltrasonicSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
@@ -37,7 +38,8 @@ import edu.wpi.first.wpilibj.Timer;
 public class Robot extends TimedRobot {
   //private static final String kDefaultAuto = "Default";
   //private static final String kCustomAuto = "My Auto";
-  /*private final WPI_TalonSRX leftFront;
+  /*private final WPI
+  _TalonSRX leftFront;
   private final WPI_TalonSRX leftRear;
   private final WPI_TalonSRX rightFront;
   private final WPI_TalonSRX rightRear;
@@ -52,8 +54,10 @@ public class Robot extends TimedRobot {
   public static VisionSubsystem camera;
   public static final String ENCODER_PREFIX = "Drive/Encoders/";
   public static DriveSubsystem driver;
+  public static GameSubsystem gamer;
   public static UltrasonicSubsystem ultrasonic;
   public static PneumaticsSubsystem pneumaticsController;
+  boolean started = false;
   
  // private final CameraServer cameraServer;
 
@@ -67,8 +71,8 @@ public class Robot extends TimedRobot {
   public Robot() {
     ultrasonic = new UltrasonicSubsystem();
     camera = new VisionSubsystem();
-
     driver = new DriveSubsystem();
+    gamer = new GameSubsystem();
     pneumaticsController = new PneumaticsSubsystem(); 
   }
 
@@ -79,11 +83,12 @@ public class Robot extends TimedRobot {
   
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
-    
+    SmartDashboard.putString("Drive/Comms/1", "90 days");
   }
 
   @Override
   public void robotPeriodic() {
+    started = true;
   }
 
   @Override
@@ -93,6 +98,11 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
+    //System.out.println(started);
+    if (started) {
+      SmartDashboard.putString("Drive/Comms/1", "My battery is low and it's getting dark");
+    }
+    started = false;
   }
 
   @Override
@@ -130,7 +140,7 @@ public class Robot extends TimedRobot {
       Timer.delay(0.005);
       
     }
-    
+        
   }
 
   @Override

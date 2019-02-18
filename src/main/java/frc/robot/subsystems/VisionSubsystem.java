@@ -33,7 +33,8 @@ public class VisionSubsystem extends Subsystem {
   //  private final UsbCamera usbCamera;
 
     public VisionSubsystem() {
-        CameraServer.getInstance().startAutomaticCapture();
+        CameraServer.getInstance().startAutomaticCapture(0);
+        CameraServer.getInstance().startAutomaticCapture(1);
      //   CameraServer.getInstance().getVideo();
      //   CameraServer.getInstance().putVideo("MM", 1080, 720);
    //  UsbCamera usbCamera = new UsbCamera("FLAMingo", 1);

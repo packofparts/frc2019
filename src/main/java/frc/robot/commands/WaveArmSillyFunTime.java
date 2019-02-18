@@ -7,36 +7,16 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.Robot;
 
-public class testingCommandGroup extends CommandGroup {
+public class WaveArmSillyFunTime extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public testingCommandGroup() {
+  public WaveArmSillyFunTime() {
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
-
-
-
-
-    requires(Robot.driver);
-
-    addSequential(new DriveForTimeCommand(2, .75));
-    addSequential(new PneumaticsToggleCommand(1));
-    addSequential(new ToggleDriveDirection());
-    addSequential(new DriveForTimeCommand(2, .75));
-    addSequential(new ToggleDriveDirection());
-    
-    //addSequential(new DriveForTimeCommand(1, -.5));
-    /*addSequential(new TurnByCommand(170));
-    addSequential(new TurnByCommand(170));*/
-
-    
-    
     // these will run in order.
 
     // To run multiple commands at the same time,

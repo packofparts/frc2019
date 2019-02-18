@@ -18,10 +18,11 @@ public class PneumaticsToggleCommand extends Command {
     this.solenoid = solenoidToToggle;
     requires(Robot.pneumaticsController);
   }
-  public static boolean solenoid1 = false;
-  public static boolean solenoid2 = false;
-  public static boolean solenoid3 = false;
-  public static boolean solenoid4 = false;
+  public static boolean fs = false;
+  public static boolean ws = false;
+  public static boolean bs = false;
+  public static boolean as = false;
+  public static boolean hs = false;
   int solenoid;
   // Called just before this Command runs the first time
   @Override
@@ -34,35 +35,41 @@ public class PneumaticsToggleCommand extends Command {
   @Override
   protected void execute() {
     if(solenoid == 1) {
-      solenoid1 = !solenoid1;
-      if(solenoid1) {
+      fs = !fs;
+      if(fs) {
         Robot.pneumaticsController.solenoidOn(1);
       } else {
         Robot.pneumaticsController.solenoidOff(1);
       }
     } else if(solenoid == 2) {
-      solenoid2 = !solenoid2;
-      if(solenoid2) {
+      ws = !ws;
+      if(ws) {
         Robot.pneumaticsController.solenoidOn(2);
       } else {
         Robot.pneumaticsController.solenoidOff(2);
       }
     } else if(solenoid == 3) {
-      solenoid3 = !solenoid3;
-      if(solenoid3) {
+      bs = !bs;
+      if(bs) {
         Robot.pneumaticsController.solenoidOn(3);
       } else {
         Robot.pneumaticsController.solenoidOff(3);
       }
     } else if(solenoid == 4) {
-      solenoid4 = !solenoid4;
-      if(solenoid4) {
+      as = !as;
+      if(as) {
         Robot.pneumaticsController.solenoidOn(4);
       } else {
         Robot.pneumaticsController.solenoidOff(4);
       }
+    } else if(solenoid == 5) {
+      hs = !hs;
+      if(hs) {
+        Robot.pneumaticsController.solenoidOn(5);
+      } else {
+        Robot.pneumaticsController.solenoidOff(5);
+      }
     }
-    
   }
 
   // Make this return true when this Command no longer needs to run execute()
