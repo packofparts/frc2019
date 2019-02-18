@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 //import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.AbortCommand;
-import frc.robot.commands.ABORT;
 import frc.robot.commands.DriveByCommand;
 import frc.robot.commands.HonkCommand;
 import frc.robot.commands.PneumaticsToggleCommand;
@@ -42,10 +41,6 @@ public class OI {
     JoystickButton driveMenuButton = new JoystickButton(driveJoyStick, 8);
     //driveMenuButton.toggleWhenActive(new testingCommandGroup());
     driveMenuButton.close(); 
-
-    JoystickButton driveSelectButton = new JoystickButton(driveJoyStick, 7);
-    driveSelectButton.toggleWhenActive(new ABORT());
-    driveSelectButton.close();
     
     JoystickButton driveAButton = new JoystickButton(driveJoyStick, 1);
     driveAButton.toggleWhenActive(new DriveByCommand(5));
@@ -130,6 +125,12 @@ public class OI {
   }
   public boolean getBGame() {
     return (gameJoyStick.getBButton());
+  }
+  public boolean getXGame() {
+    return (gameJoyStick.getXButton());
+  }
+  public boolean getYGame() {
+    return (gameJoyStick.getYButton());
   }
   public boolean getXClickDrive() {
     return (driveJoyStick.getXButtonReleased());

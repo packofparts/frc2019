@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -33,6 +34,7 @@ public class DriveSubsystem extends Subsystem {
 
   public DifferentialDrive treads;
   public XboxController m_mainJoyStick;
+  public PowerDistributionPanel pdp;
   public static boolean isBackward;
   public static String defaultDrive = "ChezyDriveCommand";
 
@@ -49,6 +51,7 @@ public class DriveSubsystem extends Subsystem {
     rightRear = new WPI_TalonSRX(RobotMap.rightRear);
     leftFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
     isBackward = false;
+    pdp = new PowerDistributionPanel(RobotMap.pdp);
     
     rearstrut = new WPI_TalonSRX(RobotMap.strutback);
     rightFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
@@ -97,6 +100,10 @@ public void resetGyro() {
     SmartDashboard.putNumber("Drive/Encoders/1", difference*-Robot.m_oi.getLeftYDrive()); 
     SmartDashboard.putNumber("Drive/Encoders/2", difference);
     SmartDashboard.putNumber("Drive/Gamemech/Mode", Robot.gamer.Mode);
+    SmartDashboard.putNumber("PDP/Currents/12", pdp.getCurrent(12));
+    SmartDashboard.putNumber("PDP/Currents/13", pdp.getCurrent(13));
+    SmartDashboard.putNumber("PDP/Voltage", pdp.getVoltage());
+    
   }
    //System.out.println(rightRear.getSelectedSensorPosition(0));
 

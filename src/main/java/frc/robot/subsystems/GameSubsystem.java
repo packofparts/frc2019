@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -60,48 +61,87 @@ public class GameSubsystem extends Subsystem {
     }
 
     if (Robot.m_oi.getDpadGame() == 0) {
-      Mode = 1;
+      Mode = 0;
     }
     else if (Robot.m_oi.getDpadGame() == 90) {
-      Mode = 0;
+      Mode = 1;
     }
     else if (Robot.m_oi.getDpadGame() == 180) {
-      Mode = 0;
+      Mode = 2;
     }
-        
-    JoystickButton gameAButton = new JoystickButton(Robot.m_oi.gameJoyStick, 1);
-    JoystickButton gameBButton = new JoystickButton(Robot.m_oi.gameJoyStick, 3);
-    JoystickButton gameXButton = new JoystickButton(Robot.m_oi.gameJoyStick, 2);
-    JoystickButton gameYButton = new JoystickButton(Robot.m_oi.gameJoyStick, 4);
 
     //This defines ABXY for game controller to toggle solenoids
-    if (Mode == 0) {
-      gameAButton.close();
-      gameBButton.close();
-      gameXButton.close();
-      gameYButton.close();
-      gameAButton.toggleWhenActive(new PneumaticsToggleCommand(1));
-      gameBButton.toggleWhenActive(new PneumaticsToggleCommand(2));
-      gameXButton.toggleWhenActive(new PneumaticsToggleCommand(3));
-      gameYButton.toggleWhenActive(new PneumaticsToggleCommand(4));
-      //System.out.println("Climb");
+    if (Mode == 1) {
+      //climb
+      if (Robot.m_oi.gameJoyStick.getAButtonPressed()) {
+        System.out.println("A mode 1");
+        Scheduler.getInstance().add(new PneumaticsToggleCommand(1));
+      }
+      if (Robot.m_oi.gameJoyStick.getBButtonPressed()) {
+        System.out.println("B mode 1");
+        Scheduler.getInstance().add(new PneumaticsToggleCommand(2));
+      }
+      if (Robot.m_oi.gameJoyStick.getXButtonPressed()) {
+        System.out.println("X mode 1");
+        Scheduler.getInstance().add(new PneumaticsToggleCommand(3));
+      }
+      if (Robot.m_oi.gameJoyStick.getYButtonPressed()) {
+        System.out.println("Y mode 1");
+        Scheduler.getInstance().add(new PneumaticsToggleCommand(4));
+      }
+     // System.out.println("limb");
     }
-    else if (Mode == 1) {
-      gameAButton.close();
-      gameBButton.close();
-      gameXButton.close();
-      gameYButton.close();
-      //System.out.println("Game");
-      gameAButton.toggleWhenActive(new ElevatorMoveCommand(0.0));
-      gameBButton.toggleWhenActive(new ElevatorMoveCommand(28374.0));
-      gameYButton.toggleWhenActive(new ElevatorMoveCommand(36313.0));
+    else if (Mode == 0) {
+      //ball
+      if (Robot.m_oi.gameJoyStick.getAButtonPressed()) {
+        System.out.println("A mode 0");
+        Scheduler.getInstance().add(new ElevatorMoveCommand(-2000.0));
+      }
+      if (Robot.m_oi.gameJoyStick.getBButtonPressed()) {
+        System.out.println("B mode 0");
+        Scheduler.getInstance().add(new ElevatorMoveCommand(-20000.0));
+      }
+      if (Robot.m_oi.gameJoyStick.getYButtonPressed()) {
+        System.out.println("Y mode 0");
+        Scheduler.getInstance().add(new ElevatorMoveCommand(-32000.0));
+      }
+      if (Robot.m_oi.gameJoyStick.getXButtonPressed()) {
+        System.out.println("X mode 0");
+        Scheduler.getInstance().add(new ElevatorMoveCommand(-35000.0));
+       //hi 
+      }
+      if (Robot.m_oi.gameJoyStick.getBumperPressed(Hand.kRight)) {
+        System.out.println("Right Bumper mode 0");
+        Scheduler.getInstance().add(new ElevatorMoveCommand(-30000.0));
+       //hi 
+      }
+      while (Robot.m_oi.gameJoyStick.getTriggerAxis(Hand.kLeft) != 0) {
+       // double intakeRate = Robot.m_oi.getTriggerDrive(); 
+        Scheduler.getInstance().add(new ElevatorMoveCommand(Robot.m_oi.gameJoyStick.getTriggerAxis(Hand.kLeft) * 1000));
+        //System.out.println(Robot.m_oi.gameJoyStick.getTriggerAxis(Hand.kLeft));
+        //intake.set(Robot.m_oi.gameJoyStick.getTriggerAxis(Hand.kLeft));
+      }
+      //System.out.println("G-man");
     }
     else if (Mode == 2) {
-      gameAButton.close();
-      gameBButton.close();
-      gameXButton.close();
-      gameYButton.close();
-      System.out.println("Mode 2");
+      //hatch
+      if (Robot.m_oi.gameJoyStick.getAButtonPressed()) {
+        System.out.println("A mode 2");
+        Scheduler.getInstance().add(new ElevatorMoveCommand(-2000.0));
+      }
+      if (Robot.m_oi.gameJoyStick.getBButtonPressed()) {
+        System.out.println("B mode 2");
+        Scheduler.getInstance().add(new ElevatorMoveCommand(-24000.0));
+      }
+      if (Robot.m_oi.gameJoyStick.getXButtonPressed()) {
+        System.out.println("X mode 2");
+        //Scheduler.getInstance().add(new PneumaticsToggleCommand(3));
+      }
+      if (Robot.m_oi.gameJoyStick.getYButtonPressed()) {
+        System.out.println("Y mode 2");
+        Scheduler.getInstance().add(new ElevatorMoveCommand(-32000.0));
+      }
+      //System.out.println("sdguivhsdfixc");
     }
   }
    //System.out.println(rightRear.getSelectedSensorPosition(0));

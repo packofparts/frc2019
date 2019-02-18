@@ -20,6 +20,7 @@ public class RobotMap {
   // public static int leftMotor = 1;
   // public static int rightMotor = 2;
   public static int pcmcan = 5; //This must match the CAN id of the PCM. If it does not, pneumatics breaks
+  public static int pdp = 0;
   public static int rightFront = 1;
   public static int rightRear = 2; //encoder
   public static int leftFront = 3;

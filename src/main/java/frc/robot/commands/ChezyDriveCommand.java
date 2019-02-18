@@ -39,7 +39,8 @@ public class ChezyDriveCommand extends Command {
       float difference = Robot.driver.rightFront.getSelectedSensorVelocity() - Robot.driver.leftFront.getSelectedSensorVelocity();
       SmartDashboard.putNumber("Drive/Encoders/1", difference*forward); 
       SmartDashboard.putNumber("Drive/Encoders/2", difference);
-      if(difference > yomamadelta)
+      if(difference 
+      > yomamadelta)
       {
         yomama += 0.05;
       }
