@@ -7,11 +7,15 @@
 
 package frc.robot.commands;
 
-import frc.robot.Robot;
-import edu.wpi.first.wpilibj.command.Command;
 
-public class AbortCommand extends Command {
-  public AbortCommand() {
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.robot.Robot;
+
+public class KillScheduler extends Command {
+  public KillScheduler() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -24,7 +28,15 @@ public class AbortCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.driver.arcadeDrive(0, 0);
+    Scheduler.getInstance().removeAll();
+    System.out.println("Restarting Essential Commands");
+    Robot.m_oi.gameJoyStick.setRumble(RumbleType.kRightRumble, 1);
+    Robot.m_oi.driveJoyStick.setRumble(RumbleType.kRightRumble, 1);
+    Scheduler.getInstance().add(new ChezyDriveCommand());
+    Timer.delay(1);
+    Robot.m_oi.gameJoyStick.setRumble(RumbleType.kRightRumble, 0);
+    Robot.m_oi.driveJoyStick.setRumble(RumbleType.kRightRumble, 0);
+    System.out.println("Rebooting Complete!");
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -36,8 +48,6 @@ public class AbortCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    throw new SecurityException("ABORT ABORT ABORT");
-
   }
 
   // Called when another command which requires one or more of the same

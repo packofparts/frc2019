@@ -13,6 +13,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -25,9 +26,15 @@ import frc.robot.commands.TurnByCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 //import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.AbortCommand;
+import frc.robot.commands.BallCargoShip;
+import frc.robot.commands.BallFloor;
+import frc.robot.commands.BallLVL1;
+import frc.robot.commands.BallLVL2;
+import frc.robot.commands.BallLVL3;
 import frc.robot.commands.DriveByCommand;
 import frc.robot.commands.HonkCommand;
 import frc.robot.commands.PneumaticsToggleCommand;
@@ -35,12 +42,22 @@ import frc.robot.commands.ToggleDriveCommand;
 import frc.robot.commands.ToggleDriveDirection;
 import frc.robot.commands.TurnByCommand;
 import frc.robot.commands.ElevatorMoveCommand;
+import frc.robot.commands.HatchLVL1;
+import frc.robot.commands.HatchLVL2;
+import frc.robot.commands.HatchLVL3;
+import frc.robot.commands.HatchLVLFloor;
 import frc.robot.commands.testingCommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
 
 public class GameSubsystem extends Subsystem {
-  public int Mode = 3;
+  public int Mode = 1;
+  public static boolean fs = false;
+  public static boolean ws = false;
+  public static boolean bs = false;
+  public static boolean as = false;
+  public static boolean hs = false;
+
     public static WPI_TalonSRX elevator;
 /**
    * Add your docs here.
@@ -57,17 +74,26 @@ public class GameSubsystem extends Subsystem {
   @Override
   public void periodic() {
 
-    if (Mode == 2 || Mode == 3) {
+  //  if (Mode == 2 || Mode == 3) {
         elevatorDrive(Robot.m_oi.getRightYGame());
-    }
+   // }
 
     if (Robot.m_oi.getDpadGame() == 0) {
+      Robot.m_oi.gameJoyStick.setRumble(RumbleType.kRightRumble, 1);
+      Timer.delay(1);  
+      Robot.m_oi.gameJoyStick.setRumble(RumbleType.kRightRumble, 0);
       Mode = 3;
     }
     else if (Robot.m_oi.getDpadGame() == 90) {
+      Robot.m_oi.gameJoyStick.setRumble(RumbleType.kRightRumble, 1);
+      Timer.delay(1);  
+      Robot.m_oi.gameJoyStick.setRumble(RumbleType.kRightRumble, 0);
       Mode = 1;
     }
     else if (Robot.m_oi.getDpadGame() == 180) {
+      Robot.m_oi.gameJoyStick.setRumble(RumbleType.kRightRumble, 1);
+      Timer.delay(1);  
+      Robot.m_oi.gameJoyStick.setRumble(RumbleType.kRightRumble, 0);
       Mode = 2;
     }
    // else if (Robot.m_oi.getDpadGame() == 270) {
@@ -79,19 +105,23 @@ public class GameSubsystem extends Subsystem {
       //climb
       if (Robot.m_oi.gameJoyStick.getAButtonPressed()) {
         System.out.println("A mode 1");
-        Scheduler.getInstance().add(new PneumaticsToggleCommand(1));
+        Scheduler.getInstance().add(new PneumaticsToggleCommand(1, !fs));
       }
       if (Robot.m_oi.gameJoyStick.getXButtonPressed()) {
         System.out.println("X mode 1");
-        Scheduler.getInstance().add(new PneumaticsToggleCommand(2));
+        Scheduler.getInstance().add(new PneumaticsToggleCommand(2, !as));
       }
       if (Robot.m_oi.gameJoyStick.getBButtonPressed()) {
         System.out.println("B mode 1");
-        Scheduler.getInstance().add(new PneumaticsToggleCommand(3));
+        Scheduler.getInstance().add(new PneumaticsToggleCommand(3, !bs));
       }
       if (Robot.m_oi.gameJoyStick.getYButtonPressed()) {
         System.out.println("Y mode 1");
-        Scheduler.getInstance().add(new PneumaticsToggleCommand(4));
+        Scheduler.getInstance().add(new PneumaticsToggleCommand(4, !ws));
+      }
+      if (Robot.m_oi.gameJoyStick.getBumper(Hand.kRight)) {
+        System.out.println("Bumper mode 1");
+        Scheduler.getInstance().add(new PneumaticsToggleCommand(5, !hs));
       }
       while (Robot.m_oi.getGameTriggerDrive() != 0)
       {
@@ -104,24 +134,24 @@ public class GameSubsystem extends Subsystem {
       //ball
       if (Robot.m_oi.gameJoyStick.getAButtonPressed()) {
         System.out.println("A mode 0");
-        Scheduler.getInstance().add(new ElevatorMoveCommand(-2000.0));
+        Scheduler.getInstance().add(new BallFloor());
       }
       if (Robot.m_oi.gameJoyStick.getBButtonPressed()) {
         System.out.println("B mode 0");
-        Scheduler.getInstance().add(new ElevatorMoveCommand(-20000.0));
+        Scheduler.getInstance().add(new BallLVL1());
       }
       if (Robot.m_oi.gameJoyStick.getYButtonPressed()) {
         System.out.println("Y mode 0");
-        Scheduler.getInstance().add(new ElevatorMoveCommand(-32000.0));
+        Scheduler.getInstance().add(new BallLVL2());
       }
       if (Robot.m_oi.gameJoyStick.getXButtonPressed()) {
         System.out.println("X mode 0");
-        Scheduler.getInstance().add(new ElevatorMoveCommand(-35000.0));
+        Scheduler.getInstance().add(new BallLVL3());
        //hi 
       }
       if (Robot.m_oi.gameJoyStick.getBumperPressed(Hand.kRight)) {
         System.out.println("Right Bumper mode 0");
-        Scheduler.getInstance().add(new ElevatorMoveCommand(-30000.0));
+        Scheduler.getInstance().add(new BallCargoShip());
        //hi 
       }
      // while (Robot.m_oi.gameJoyStick.getTriggerAxis(Hand.kLeft) != 0) {
@@ -131,10 +161,10 @@ public class GameSubsystem extends Subsystem {
         //intake.set(Robot.m_oi.gameJoyStick.getTriggerAxis(Hand.kLeft));
       //}
       //System.out.println("G-man");
-      while (Robot.m_oi.getGameTriggerDrive() != 0)
+      if (Robot.m_oi.getGameTriggerDrive() != 0)
       {
         WPI_TalonSRX intake = new WPI_TalonSRX(RobotMap.intake);
-        intake.set(-Robot.m_oi.getGameTriggerDrive());
+        intake.set(-Robot.m_oi.getRightYGame());
       }
 
     }
@@ -142,19 +172,19 @@ public class GameSubsystem extends Subsystem {
       //hatch
       if (Robot.m_oi.gameJoyStick.getAButtonPressed()) {
         System.out.println("A mode 2");
-        Scheduler.getInstance().add(new ElevatorMoveCommand(-2000.0));
+        Scheduler.getInstance().add(new HatchLVLFloor());
       }
       if (Robot.m_oi.gameJoyStick.getBButtonPressed()) {
         System.out.println("B mode 2");
-        Scheduler.getInstance().add(new ElevatorMoveCommand(-24000.0));
+        Scheduler.getInstance().add(new HatchLVL1());
       }
       if (Robot.m_oi.gameJoyStick.getXButtonPressed()) {
         System.out.println("X mode 2");
-        //Scheduler.getInstance().add(new PneumaticsToggleCommand(3));
+        Scheduler.getInstance().add(new HatchLVL2());
       }
       if (Robot.m_oi.gameJoyStick.getYButtonPressed()) {
         System.out.println("Y mode 2");
-        Scheduler.getInstance().add(new ElevatorMoveCommand(-32000.0));
+        Scheduler.getInstance().add(new HatchLVL3());
       }
       //System.out.println("sdguivhsdfixc");
     }

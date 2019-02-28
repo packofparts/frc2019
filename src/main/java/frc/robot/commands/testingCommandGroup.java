@@ -26,7 +26,7 @@ public class testingCommandGroup extends CommandGroup {
     requires(Robot.driver);
 
     addSequential(new DriveForTimeCommand(2, .75));
-    addSequential(new PneumaticsToggleCommand(1));
+    addSequential(new PneumaticsToggleCommand(1, true));
     addSequential(new ToggleDriveDirection());
     addSequential(new DriveForTimeCommand(2, .75));
     addSequential(new ToggleDriveDirection());

@@ -18,14 +18,18 @@ public class GettingDownFromTheStep extends CommandGroup {
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
     // these will run in order.
-    addSequential(new DriveByCommand(1));
-    addSequential(new PneumaticsToggleCommand(1));
-    addSequential(new DriveByCommand(1));
-    addSequential(new PneumaticsToggleCommand(3));
-    addSequential(new MMMDriveCommandTest(5));
+//addSequential(new DriveByCommand(1));
+    addSequential(new PneumaticsToggleCommand(3, true));
+    addSequential(new DelayCommand(1)); 
+    addSequential(new DriveByCommand(-1.79166, 0.5));
+    addSequential(new DelayCommand(0.5)); 
+    addSequential(new PneumaticsToggleCommand(3, false));
+    addSequential(new DelayCommand(1)); 
+    //addSequential(new MMMDriveCommandTest(5));
+    addSequential(new DriveByCommand(-1.25, 0.5));
 
-    addParallel(new PneumaticsToggleCommand(1));
-    addParallel(new PneumaticsToggleCommand(3));
+    //addParallel(new PneumaticsToggleCommand(1, false));
+   // addParallel(new PneumaticsToggleCommand(3, false));
     // To run multiple commands at the same time,
     // use addParallel()
     // e.g. addParallel(new Command1());

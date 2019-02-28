@@ -9,24 +9,20 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class GettingUpToLaSteppe extends CommandGroup {
+public class HatchLVL1 extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public GettingUpToLaSteppe() {
+  public HatchLVL1() {
+    addSequential(new ElevatorMoveCommand(-16000.0));
+    addSequential(new PneumaticsToggleCommand(4, true));
+    addSequential(new PneumaticsToggleCommand(2, true));
+
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
     // these will run in order.
-    addSequential(new PneumaticsToggleCommand(1, true));
-    addSequential(new DriveByCommand(1));
-    addSequential(new PneumaticsToggleCommand(3, true));
-    addSequential(new DriveByCommand(1));
 
-    addSequential(new PneumaticsToggleCommand(1, false));
-    addSequential(new DriveByCommand(1));
-    addSequential(new PneumaticsToggleCommand(3, false));
-    addSequential(new DriveByCommand(1));
     // To run multiple commands at the same time,
     // use addParallel()
     // e.g. addParallel(new Command1());

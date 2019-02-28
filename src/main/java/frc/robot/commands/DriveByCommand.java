@@ -16,16 +16,29 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class DriveByCommand extends Command {
   private double m_Distance = 0;
+  private double max_speed = 0;
   private double m_targetDistance = 0;
   private double startingDistance = 0;
   private boolean is_Finished = false;
   private double delta = 15;
+  private double fixingnumber = 1163.80494;
 
 
+  public DriveByCommand(double distance, double maxSpeed) { 
+  
+    is_Finished = false;
+    m_Distance = distance * fixingnumber;
+    max_speed = maxSpeed;
+    if(max_speed < .5) {
+      max_speed = .5;
+    }
+    requires(Robot.driver);
+  }
   public DriveByCommand(double distance) { 
   
     is_Finished = false;
-    m_Distance = distance * 1694.15;
+    m_Distance = distance * fixingnumber;
+    max_speed = 1.0;
     requires(Robot.driver);
   }
 
@@ -43,8 +56,8 @@ public class DriveByCommand extends Command {
   //  System.out.print("hi shrimp flamingos oo oo oo if you're multi colored thats cool too, you dount need to change, its boring being the same Flamingo ooooo yash is cool");
     double m_currentDistance = Robot.driver.getEncoderRight();
     double m_speed = ((m_targetDistance-m_currentDistance)/m_Distance)+0.3;
-    if (m_speed > 1.0) {
-      m_speed = 1.0;
+    if (m_speed > max_speed) {
+      m_speed = max_speed;
     }
     if (m_speed < 0.5) {
       m_speed = 0.5;

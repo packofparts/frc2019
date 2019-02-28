@@ -107,10 +107,10 @@ public void resetGyro() {
     SmartDashboard.putNumber("PDP/Voltage", pdp.getVoltage());
     
     if (Robot.m_oi.getADrive() && Robot.m_oi.getLeftBumperDrive()){
-      Scheduler.getInstance().add(new GettingDownFromTheStep());
+    Scheduler.getInstance().add(new GettingDownFromTheStep());
     }
     if (Robot.m_oi.getBDrive() && Robot.m_oi.getLeftBumperDrive()) {
-      Scheduler.getInstance().add(new GettingUpToLaSteppe());
+      //Scheduler.getInstance().add(new GettingUpToLaSteppe());
     }
   }
    //System.out.println(rightRear.getSelectedSensorPosition(0));
@@ -144,4 +144,10 @@ public void resetGyro() {
   public void stop() {
     treads.stopMotor();
   }
+
+public void resetEncoders() {
+  leftFront.setSelectedSensorPosition(0);
+  rightFront.setSelectedSensorPosition(0);
+  Robot.gamer.elevator.setSelectedSensorPosition(0);
+}
 }

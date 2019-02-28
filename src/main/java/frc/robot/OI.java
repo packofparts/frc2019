@@ -16,6 +16,7 @@ import frc.robot.commands.DriveByCommand;
 import frc.robot.commands.GettingDownFromTheStep;
 import frc.robot.commands.GettingUpToLaSteppe;
 import frc.robot.commands.HonkCommand;
+import frc.robot.commands.KillScheduler;
 import frc.robot.commands.PneumaticsToggleCommand;
 import frc.robot.commands.ToggleDriveCommand;
 import frc.robot.commands.ToggleDriveDirection;
@@ -44,19 +45,24 @@ public class OI {
     //driveMenuButton.toggleWhenActive(new testingCommandGroup());
     driveMenuButton.close(); 
     
-    //JoystickButton driveAButton = new JoystickButton(driveJoyStick, 1);
-   // driveAButton.toggleWhenActive(new DriveByCommand(5));
+    JoystickButton driveAButton = new JoystickButton(driveJoyStick, 1);
+    driveAButton.toggleWhenActive(new DriveByCommand(5));
     //Scheduler.getInstance().add(new GettingDownFromTheStep());
-    //driveAButton.close();
+    driveAButton.close();
 
-   // JoystickButton driveBButton = new JoystickButton(driveJoyStick, 2);
-//driveBButton.toggleWhenActive(new DriveByCommand(-5));
+    JoystickButton driveBButton = new JoystickButton(driveJoyStick, 2);
+driveBButton.toggleWhenActive(new DriveByCommand(-5));
   //  driveBButton.toggleWhenActive(new GettingUpToLaSteppe());
-    //driveBButton.close();
+    driveBButton.close();
 
     JoystickButton honkButton = new JoystickButton(driveJoyStick, 10);
     honkButton.toggleWhenActive(new HonkCommand());
     honkButton.close();
+
+    JoystickButton killScheduler = new JoystickButton(gameJoyStick, 8);
+    killScheduler.toggleWhenActive(new KillScheduler());
+    killScheduler.close();
+    
 
    // JoystickButton honkButton = new JoystickButton(driveJoyStick, 10);
    // honkButton.toggleWhenActive(new HonkCommand());
@@ -68,11 +74,11 @@ public class OI {
     driveYButton.close();
 
     JoystickButton leftBumper = new JoystickButton(driveJoyStick, 5);
-    leftBumper.whenPressed(new TurnByCommand(-80));
+ //   leftBumper.whenPressed(new TurnByCommand(-80));
     leftBumper.close();
 
     JoystickButton rightBumper = new JoystickButton(driveJoyStick, 6);
-    rightBumper.whenPressed(new TurnByCommand(80));
+  //  rightBumper.whenPressed(new TurnByCommand(80));
     rightBumper.close();
 
     if(original) {
@@ -162,7 +168,9 @@ public class OI {
     }
     return ((driveJoyStick.getTriggerAxis(Hand.kRight)) - (driveJoyStick.getTriggerAxis(Hand.kLeft)));
   }
-  public double getGameTriggerDrive() {
+  public double 
+  
+  getGameTriggerDrive() {
     double RightAxis = gameJoyStick.getTriggerAxis(Hand.kRight);
     if (gameJoyStick.getTriggerAxis(Hand.kRight) < 0.3 && gameJoyStick.getTriggerAxis(Hand.kRight) > 0.1) {
       RightAxis += 0.3;

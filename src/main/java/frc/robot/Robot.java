@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ChezyDriveCommand;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ResetEncoders;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.GameSubsystem;
@@ -84,6 +85,7 @@ public class Robot extends TimedRobot {
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
     SmartDashboard.putString("Drive/Comms/1", "90 days");
+    SmartDashboard.putData("Reset Encoders", new ResetEncoders());
   }
 
   @Override
@@ -100,7 +102,7 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
     //System.out.println(started);
     if (started) {
-      SmartDashboard.putString("Drive/Comms/1", "My battery is low and it's getting dark");
+      SmartDashboard.putString("Drive/Comms/1", "My battery is low and it's getting dark...");// HELP MEEEEEEEEEEEEEEEEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!! GETMEOUTGETMEOUTHGETMEOUTGETMEOUTGETMEOUTEGETMEOUTGETMEOUTGETMEOUTGETMEOUTLGETMEOUTGETMEOUTGETMEOUTLGETMEOUTLGETMEOUTGETMEOUTGETMEOUTGETMEOUTGETMEOUTOGETMEOUTGETMEOUTGETMEOUT!");
     }
     started = false;
   }
