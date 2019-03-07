@@ -46,13 +46,13 @@ public class OI {
     driveMenuButton.close(); 
     
     JoystickButton driveAButton = new JoystickButton(driveJoyStick, 1);
-    driveAButton.toggleWhenActive(new DriveByCommand(5));
+    driveAButton.toggleWhenActive(new GettingDownFromTheStep());
     //Scheduler.getInstance().add(new GettingDownFromTheStep());
     driveAButton.close();
 
     JoystickButton driveBButton = new JoystickButton(driveJoyStick, 2);
 driveBButton.toggleWhenActive(new DriveByCommand(-5));
-  //  driveBButton.toggleWhenActive(new GettingUpToLaSteppe());
+    //driveBButton.toggleWhenActive(new GettingUpToLaSteppe());
     driveBButton.close();
 
     JoystickButton honkButton = new JoystickButton(driveJoyStick, 10);
@@ -62,6 +62,10 @@ driveBButton.toggleWhenActive(new DriveByCommand(-5));
     JoystickButton killScheduler = new JoystickButton(gameJoyStick, 8);
     killScheduler.toggleWhenActive(new KillScheduler());
     killScheduler.close();
+    
+    JoystickButton killSchedulerDrive = new JoystickButton(driveJoyStick, 8);
+    killSchedulerDrive.toggleWhenActive(new KillScheduler());
+    killSchedulerDrive.close();
     
 
    // JoystickButton honkButton = new JoystickButton(driveJoyStick, 10);
@@ -158,6 +162,9 @@ driveBButton.toggleWhenActive(new DriveByCommand(-5));
   public boolean getRightBumperDrive() {
     return (driveJoyStick.getBumper(Hand.kRight));
   }
+  public boolean getRightBumperGame() {
+    return (gameJoyStick.getBumper(Hand.kRight));
+  }
   public boolean getXClickDrive() {
     return (driveJoyStick.getXButtonReleased());
   }
@@ -168,14 +175,14 @@ driveBButton.toggleWhenActive(new DriveByCommand(-5));
     }
     return ((driveJoyStick.getTriggerAxis(Hand.kRight)) - (driveJoyStick.getTriggerAxis(Hand.kLeft)));
   }
-  public double 
-  
-  getGameTriggerDrive() {
+
+  public double getGameTriggerDrive() {
     double RightAxis = gameJoyStick.getTriggerAxis(Hand.kRight);
-    if (gameJoyStick.getTriggerAxis(Hand.kRight) < 0.3 && gameJoyStick.getTriggerAxis(Hand.kRight) > 0.1) {
-      RightAxis += 0.3;
-    }
-    return ((gameJoyStick.getTriggerAxis(Hand.kRight)) - (gameJoyStick.getTriggerAxis(Hand.kLeft)));
+    double LeftAxis = gameJoyStick.getTriggerAxis(Hand.kLeft);
+    double output = 0;
+
+
+    return (-RightAxis+LeftAxis);
   }
   public boolean getYClickGame() {
     return (gameJoyStick.getYButtonReleased());

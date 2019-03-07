@@ -21,12 +21,12 @@ public class GettingDownFromTheStep extends CommandGroup {
 //addSequential(new DriveByCommand(1));
     addSequential(new PneumaticsToggleCommand(3, true));
     addSequential(new DelayCommand(1)); 
-    addSequential(new DriveByCommand(-1.79166, 0.5));
+    addSequential(new DriveByCommand(-1.99166, 0.5));//9 was 7
     addSequential(new DelayCommand(0.5)); 
     addSequential(new PneumaticsToggleCommand(3, false));
     addSequential(new DelayCommand(1)); 
     //addSequential(new MMMDriveCommandTest(5));
-    addSequential(new DriveByCommand(-1.25, 0.5));
+    addSequential(new DriveByCommand(-1.5, 1));
 
     //addParallel(new PneumaticsToggleCommand(1, false));
    // addParallel(new PneumaticsToggleCommand(3, false));

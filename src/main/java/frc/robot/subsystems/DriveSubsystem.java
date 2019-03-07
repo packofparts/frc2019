@@ -105,6 +105,7 @@ public void resetGyro() {
     SmartDashboard.putNumber("PDP/Currents/12", pdp.getCurrent(12));
     SmartDashboard.putNumber("PDP/Currents/13", pdp.getCurrent(13));
     SmartDashboard.putNumber("PDP/Voltage", pdp.getVoltage());
+    SmartDashboard.putNumber("help/acme/kraken/cowpoop/Cycles", Robot.gamer.getCycles());
     
     if (Robot.m_oi.getADrive() && Robot.m_oi.getLeftBumperDrive()){
     Scheduler.getInstance().add(new GettingDownFromTheStep());
@@ -148,6 +149,6 @@ public void resetGyro() {
 public void resetEncoders() {
   leftFront.setSelectedSensorPosition(0);
   rightFront.setSelectedSensorPosition(0);
-  Robot.gamer.elevator.setSelectedSensorPosition(0);
+  Robot.gamer.resetElevatorEncoder();
 }
 }

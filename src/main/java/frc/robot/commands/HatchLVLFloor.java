@@ -14,9 +14,9 @@ public class HatchLVLFloor extends CommandGroup {
    * Add your docs here.
    */
   public HatchLVLFloor() {
-    addSequential(new ElevatorMoveCommand(-2000.0));
-    addSequential(new PneumaticsToggleCommand(4, true));
-    addSequential(new PneumaticsToggleCommand(2, false));
+    addParallel(new ElevatorMoveCommand(-2000.0));
+    addParallel(new PneumaticsToggleCommand(4, true));
+    addParallel(new PneumaticsToggleCommand(2, true));
     
 
     // Add Commands here:

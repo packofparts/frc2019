@@ -58,28 +58,28 @@ public class ElevatorMoveCommand extends Command {
     }
     else {
       //m_speed = ((m_targetDistance-m_currentDistance)/m_Distance)+0.5;
-      m_speed = 0.5;
+      m_speed = 0.8;
     }
 
     if (m_speed > 1.0) {
       m_speed = 1.0;
     }
-    if (m_speed < 0.5) {
-      m_speed = 0.5;
+    if (m_speed < 0.8) {
+      m_speed = 0.8;
     }
     
     if (m_targetDistance > m_currentDistance) {
       Robot.gamer.elevatorDrive(m_speed);
       //System.out.println(m_targetDistance-m_currentDistance);
       if(m_targetDistance - m_currentDistance < delta) {
-        Robot.gamer.elevatorDrive(0);
+        Robot.gamer.elevatorDrive(0.3);
          is_Finished = true;
       }
     }
     else if (m_targetDistance < m_currentDistance) {
       Robot.gamer.elevatorDrive(-m_speed);
       if(m_targetDistance-m_currentDistance > -delta) {
-        Robot.gamer.elevatorDrive(0);
+        Robot.gamer.elevatorDrive(0.3);
        is_Finished = true;
       }
     }
@@ -93,7 +93,7 @@ public class ElevatorMoveCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.gamer.elevatorDrive(0);
+    Robot.gamer.elevatorDrive(0.3);
     //Scheduler.getInstance().add(new ChezyDriveCommand());
   }
 

@@ -8,15 +8,20 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.Robot;
 
 public class BallLVL3 extends CommandGroup {
   /**
    * Add your docs here.
    */
   public BallLVL3() {
-    addSequential(new ElevatorMoveCommand(-32000.0));
-    addSequential(new PneumaticsToggleCommand(4, true));
+    addSequential(new ElevatorMoveCommand(-20500.0));
+    addSequential(new PneumaticsToggleCommand(4, false));
     addSequential(new PneumaticsToggleCommand(2, false));
+    addSequential(new PneumaticsToggleCommand(4, true));
+    addSequential(new IntakeCommand(1));
+    addSequential(new DelayCommand(1));
+    addSequential(new IntakeCommand(0));
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

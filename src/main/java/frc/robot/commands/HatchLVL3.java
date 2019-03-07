@@ -14,9 +14,9 @@ public class HatchLVL3 extends CommandGroup {
    * Add your docs here.
    */
   public HatchLVL3() {
-    addSequential(new ElevatorMoveCommand(-32000.0));
-    addSequential(new PneumaticsToggleCommand(4, true));
-    addSequential(new PneumaticsToggleCommand(2, true));
+    addParallel(new ElevatorMoveCommand(-32000.0));
+    addParallel(new PneumaticsToggleCommand(4, true));
+    addParallel(new PneumaticsToggleCommand(2, true));
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

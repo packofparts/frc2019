@@ -39,6 +39,7 @@ public class PneumaticsToggleCommand extends Command {
       } else {
         Robot.pneumaticsController.solenoidOff(1);
       }
+      
     } else if(solenoid == 2) {
       Robot.gamer.as = m_vals;
       if(Robot.gamer.as) {
@@ -46,6 +47,7 @@ public class PneumaticsToggleCommand extends Command {
       } else {
         Robot.pneumaticsController.solenoidOff(2);
       }
+      Robot.gamer.addACycle();
     } else if(solenoid == 3) {
       Robot.gamer.bs = m_vals;
       if(Robot.gamer.bs) {
@@ -60,14 +62,9 @@ public class PneumaticsToggleCommand extends Command {
       } else {
         Robot.pneumaticsController.solenoidOff(4);
       }
-    } else if(solenoid == 5) {
-      Robot.gamer.hs = m_vals;
-      if(Robot.gamer.hs) {
-        Robot.pneumaticsController.solenoidOn(5);
-      } else {
-        Robot.pneumaticsController.solenoidOff(5);
-      }
+      Robot.gamer.addACycle();
     }
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()

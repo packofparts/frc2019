@@ -14,9 +14,9 @@ public class BallLVL1 extends CommandGroup {
    * Add your docs here.
    */
   public BallLVL1() {
-    addSequential(new ElevatorMoveCommand(-20000.0));
-    addSequential(new PneumaticsToggleCommand(4, true));
-    addSequential(new PneumaticsToggleCommand(2, false));
+    addParallel(new ElevatorMoveCommand(-11080.0));
+    addParallel(new PneumaticsToggleCommand(4, false));
+    addParallel(new PneumaticsToggleCommand(2, true));
 
     // Add Commands here:
     // e.g. addSequential(new Command1());
