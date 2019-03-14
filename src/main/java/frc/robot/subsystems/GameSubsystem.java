@@ -256,7 +256,7 @@ public class GameSubsystem extends Subsystem {
   }
   
   public void elevatorDrive(double go){
-    elevator.set(go);
+    elevator.set(go+0.2);
   }
 
   public void stopE(){

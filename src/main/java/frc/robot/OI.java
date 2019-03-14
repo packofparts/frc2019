@@ -24,7 +24,7 @@ import frc.robot.commands.TurnByCommand;
 import frc.robot.commands.ElevatorMoveCommand;
 import frc.robot.commands.testingCommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
-
+import frc.robot.commands.IntakeOffsetCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -35,33 +35,35 @@ public class OI {
   public boolean original = true;
   public XboxController driveJoyStick = new XboxController(0);
   public XboxController gameJoyStick = new XboxController(1);
+  public double intakeOffset = 0;
+
   public OI() {
     //X button toggles drive command
-    JoystickButton driveXButton = new JoystickButton(driveJoyStick, 3);
-    driveXButton.toggleWhenActive(new ToggleDriveCommand());
-    driveXButton.close();
+    //JoystickButton driveXButton = new JoystickButton(driveJoyStick, 3);
+    //driveXButton.toggleWhenActive(new ToggleDriveCommand());
+    //driveXButton.close();
 
-    JoystickButton driveMenuButton = new JoystickButton(driveJoyStick, 8);
+    //JoystickButton driveMenuButton = new JoystickButton(driveJoyStick, 8);
     //driveMenuButton.toggleWhenActive(new testingCommandGroup());
-    driveMenuButton.close(); 
+    //driveMenuButton.close(); 
     
-    JoystickButton driveAButton = new JoystickButton(driveJoyStick, 1);
-    driveAButton.toggleWhenActive(new GettingDownFromTheStep());
+    //JoystickButton driveAButton = new JoystickButton(driveJoyStick, 1);
+    //driveAButton.toggleWhenActive(new GettingDownFromTheStep());
     //Scheduler.getInstance().add(new GettingDownFromTheStep());
-    driveAButton.close();
+ //   driveAButton.close();
 
-    JoystickButton driveBButton = new JoystickButton(driveJoyStick, 2);
-driveBButton.toggleWhenActive(new DriveByCommand(-5));
+    //JoystickButton driveBButton = new JoystickButton(driveJoyStick, 2);
+     //driveBButton.toggleWhenActive(new DriveByCommand(-5));
     //driveBButton.toggleWhenActive(new GettingUpToLaSteppe());
-    driveBButton.close();
+    //driveBButton.close();
 
-    JoystickButton honkButton = new JoystickButton(driveJoyStick, 10);
-    honkButton.toggleWhenActive(new HonkCommand());
-    honkButton.close();
+    //JoystickButton honkButton = new JoystickButton(driveJoyStick, 10);
+    //honkButton.toggleWhenActive(new HonkCommand());
+    //honkButton.close();
 
-    JoystickButton killScheduler = new JoystickButton(gameJoyStick, 8);
-    killScheduler.toggleWhenActive(new KillScheduler());
-    killScheduler.close();
+
+    //killScheduler.toggleWhenActive(new KillScheduler());
+    //killScheduler.close();
     
     JoystickButton killSchedulerDrive = new JoystickButton(driveJoyStick, 8);
     killSchedulerDrive.toggleWhenActive(new KillScheduler());
@@ -73,19 +75,19 @@ driveBButton.toggleWhenActive(new DriveByCommand(-5));
    // honkButton.close();
 
     //Y button toggles drive direction
-    JoystickButton driveYButton = new JoystickButton(driveJoyStick, 4);
-    driveYButton.toggleWhenActive(new ToggleDriveDirection());
-    driveYButton.close();
+    //JoystickButton driveYButton = new JoystickButton(driveJoyStick, 4);
+    //driveYButton.toggleWhenActive(new ToggleDriveDirection());
+    //driveYButton.close();
 
-    JoystickButton leftBumper = new JoystickButton(driveJoyStick, 5);
+    //JoystickButton leftBumper = new JoystickButton(driveJoyStick, 5);
  //   leftBumper.whenPressed(new TurnByCommand(-80));
-    leftBumper.close();
+    //leftBumper.close();
 
-    JoystickButton rightBumper = new JoystickButton(driveJoyStick, 6);
+    //JoystickButton rightBumper = new JoystickButton(driveJoyStick, 6);
   //  rightBumper.whenPressed(new TurnByCommand(80));
-    rightBumper.close();
+    //rightBumper.close();
 
-    if(original) {
+  /*  if(original) {
       JoystickButton mmmtasty = new JoystickButton(gameJoyStick, 7);
       mmmtasty.whenPressed(new AbortCommand());
       mmmtasty.close();
@@ -98,9 +100,10 @@ driveBButton.toggleWhenActive(new DriveByCommand(-5));
       mmmtasty.close();
    //   driveJoyStick = gameJoyStick;
    //   gameJoyStick = driveJoyStick;
-    } 
+    } */
   }
  
+  
  
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
@@ -179,10 +182,14 @@ driveBButton.toggleWhenActive(new DriveByCommand(-5));
   public double getGameTriggerDrive() {
     double RightAxis = gameJoyStick.getTriggerAxis(Hand.kRight);
     double LeftAxis = gameJoyStick.getTriggerAxis(Hand.kLeft);
-    double output = 0;
+    //BEGIN DEBUG (ADD TENSION TO THE INTAKE ON LEFT SIDE)
+   // LeftAxis += intakeOffset;
+    if (LeftAxis > 1.0)
+    {
+      LeftAxis = 1.0;
+    }
 
-
-    return (-RightAxis+LeftAxis);
+    return (-RightAxis+LeftAxis+intakeOffset);
   }
   public boolean getYClickGame() {
     return (gameJoyStick.getYButtonReleased());

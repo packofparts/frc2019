@@ -8,24 +8,22 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.SPI;
+
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.RobotMap;
-import frc.robot.commands.ElevatorDriveCommandTest;
-import frc.robot.commands.ToggleDriveCommand;
-import frc.robot.OI;
 import frc.robot.Robot;
-import frc.robot.commands.TurnByCommand;
-import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.robot.RobotMap;
 import frc.robot.commands.GettingDownFromTheStep;
-import frc.robot.commands.GettingUpToLaSteppe;
 
 public class DriveSubsystem extends Subsystem {
   public static WPI_TalonSRX leftFront;
@@ -33,6 +31,8 @@ public class DriveSubsystem extends Subsystem {
   public static WPI_TalonSRX rightRear;
   public static WPI_TalonSRX leftRear;
   public static WPI_TalonSRX rearstrut;
+
+  public static double rampSeconds = .5;
 
   public DifferentialDrive treads;
   public XboxController m_mainJoyStick;
@@ -43,6 +43,8 @@ public class DriveSubsystem extends Subsystem {
   public double leftRaw;
   public double rightRaw;
   private final AHRS navX;
+
+  public boolean coastMode;
 /**
    * Add your docs here.
    */
@@ -68,6 +70,11 @@ public class DriveSubsystem extends Subsystem {
     SpeedControllerGroup rightSide = new SpeedControllerGroup(rightRear, rightFront);
     
     treads = new DifferentialDrive(leftSide, rightSide);
+    
+    leftFront.configOpenloopRamp(rampSeconds);
+    leftRear.configOpenloopRamp(rampSeconds);
+    rightFront.configOpenloopRamp(rampSeconds);
+    rightRear.configOpenloopRamp(rampSeconds);
   }
   
   @Override
@@ -91,9 +98,11 @@ public void resetGyro() {
 }
   @Override
   public void periodic() {
+    
     //SmartDashboard.putNumber("/left/raw", 1);
    // SmartDashboard.putNumber("/right/raw", rightRaw);
    // strutDrive();
+
     SmartDashboard.putNumber("Drive/Encoders/Encoder R", this.getEncoderRight());
     SmartDashboard.putNumber("Drive/Encoders/Encoder L", this.getEncoderLeft());
     SmartDashboard.putNumber("Drive/Encoders/Encoder E", Robot.gamer.getElevatorEncoder());
@@ -113,6 +122,34 @@ public void resetGyro() {
     if (Robot.m_oi.getBDrive() && Robot.m_oi.getLeftBumperDrive()) {
       //Scheduler.getInstance().add(new GettingUpToLaSteppe());
     }
+
+   
+
+    //BEGIN THE DEBUG (TOGGLE BETWEEN BRAKE AND COAST WITH RIGHT BUMPER)
+    //coastMode = false; (MOVE UP BECAUSE WE'RE IN PERIODIC AND WE DON'T WANT TO ALWAYS BE FALSE)
+    //if (Robot.m_oi.driveJoyStick.getBumperPressed(Hand.kRight)) 
+    //{
+      //ADD VARIALBE TO MAKE SURE IT ONLY GOES THROUGH ONCE
+      //coastMode = !(coastMode);
+      //if (coastMode)
+     // {
+       // leftFront.setNeutralMode(NeutralMode.Coast);
+        //rightFront.setNeutralMode(NeutralMode.Coast);
+        //leftRear.setNeutralMode(NeutralMode.Coast);
+        //rightRear.setNeutralMode(NeutralMode.Coast);
+        //System.out.println("Coast");
+     // }
+      //else 
+     // {
+       // leftFront.setNeutralMode(NeutralMode.Brake);
+       // rightFront.setNeutralMode(NeutralMode.Brake);
+        //leftRear.setNeutralMode(NeutralMode.Brake);
+       // rightRear.setNeutralMode(NeutralMode.Brake);
+       // System.out.println("Brake");
+     // }
+
+    //}
+    //END THE DEBUG
   }
    //System.out.println(rightRear.getSelectedSensorPosition(0));
 

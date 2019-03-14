@@ -56,4 +56,7 @@ public class PneumaticsSubsystem extends Subsystem {
   public void compressorOff() {
     compressor.stop();
   }
+//  public double compressorPressure() {
+//    return compressor.getPressureSwitchValue();
+//  }
 }

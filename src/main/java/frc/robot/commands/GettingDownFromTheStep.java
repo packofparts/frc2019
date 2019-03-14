@@ -8,6 +8,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.Robot;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
+
 
 public class GettingDownFromTheStep extends CommandGroup {
   /**
@@ -21,10 +27,12 @@ public class GettingDownFromTheStep extends CommandGroup {
 //addSequential(new DriveByCommand(1));
     addSequential(new PneumaticsToggleCommand(3, true));
     addSequential(new DelayCommand(1)); 
-    addSequential(new DriveByCommand(-1.99166, 0.5));//9 was 7
+    addSequential(new DriveByCommand(-1.99166, 0.5));//9 was 7[]
     addSequential(new DelayCommand(0.5)); 
     addSequential(new PneumaticsToggleCommand(3, false));
-    addSequential(new DelayCommand(1)); 
+    addSequential(new DelayCommand(0.75)); 
+    //BEGIN DEBUG (RUMBLE THE CONTROLLER WHEN BACK STRUT GOES BACK UP ON AUTON)
+    //addSequential(new RumbleCommand());
     //addSequential(new MMMDriveCommandTest(5));
     addSequential(new DriveByCommand(-1.5, 1));
 

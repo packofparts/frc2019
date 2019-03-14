@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ChezyDriveCommand;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.IntakeOffsetCommand;
 import frc.robot.commands.ResetEncoders;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -26,28 +27,8 @@ import frc.robot.subsystems.UltrasonicSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 //import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Timer;
-//import edu.wpi.first.wpilibj.GenericHID.Hand;
-//import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the TimedRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the build.gradle file in the
- * project.
- */
 public class Robot extends TimedRobot {
-  //private static final String kDefaultAuto = "Default";
-  //private static final String kCustomAuto = "My Auto";
-  /*private final WPI
-  _TalonSRX leftFront;
-  private final WPI_TalonSRX leftRear;
-  private final WPI_TalonSRX rightFront;
-  private final WPI_TalonSRX rightRear;
-  */
-  //private final DifferentialDrive drive;
-
-  //public final Joystick mainStick;
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static OI m_oi;
   
@@ -59,8 +40,6 @@ public class Robot extends TimedRobot {
   public static UltrasonicSubsystem ultrasonic;
   public static PneumaticsSubsystem pneumaticsController;
   boolean started = false;
-  
- // private final CameraServer cameraServer;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -111,9 +90,12 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_autonomousCommand = m_chooser.getSelected();
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.start();
-    }
+   // if (m_autonomousCommand != null) {
+   //   m_autonomousCommand.start();
+   // }
+
+  driver.treads.setSafetyEnabled(true);
+    Scheduler.getInstance().add(new ChezyDriveCommand());
   }
 
   @Override
@@ -128,6 +110,7 @@ public class Robot extends TimedRobot {
     }
     driver.treads.setSafetyEnabled(true);
     Scheduler.getInstance().add(new ChezyDriveCommand());
+    Scheduler.getInstance().add(new IntakeOffsetCommand(0.25));
   }
 
   /**
@@ -136,6 +119,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     System.out.println("Operator Control Started");
+    
     
     while (isOperatorControl() && isEnabled()) {
       Scheduler.getInstance().run();

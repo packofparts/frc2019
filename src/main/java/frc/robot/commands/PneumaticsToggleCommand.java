@@ -11,6 +11,10 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Command;
 //import frc.robot.OI;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.robot.Robot;
 
 public class PneumaticsToggleCommand extends Command {
   boolean m_vals;
@@ -38,6 +42,10 @@ public class PneumaticsToggleCommand extends Command {
         Robot.pneumaticsController.solenoidOn(1);
       } else {
         Robot.pneumaticsController.solenoidOff(1);
+     //   Timer.delay(0.75);
+       //Robot.m_oi.driveJoyStick.setRumble(RumbleType.kRightRumble, 1);
+       // Timer.delay(1);
+        //Robot.m_oi.driveJoyStick.setRumble(RumbleType.kRightRumble, 0);
       }
       
     } else if(solenoid == 2) {
@@ -46,6 +54,10 @@ public class PneumaticsToggleCommand extends Command {
         Robot.pneumaticsController.solenoidOn(2);
       } else {
         Robot.pneumaticsController.solenoidOff(2);
+       // Timer.delay(0.75);
+      //  Robot.m_oi.driveJoyStick.setRumble(RumbleType.kRightRumble, 1);
+        //Timer.delay(0.5);
+        //Robot.m_oi.driveJoyStick.setRumble(RumbleType.kRightRumble, 0);
       }
       Robot.gamer.addACycle();
     } else if(solenoid == 3) {
@@ -54,6 +66,10 @@ public class PneumaticsToggleCommand extends Command {
         Robot.pneumaticsController.solenoidOn(3);
       } else {
         Robot.pneumaticsController.solenoidOff(3);
+     //   Timer.delay(0.75);
+      //  Robot.m_oi.driveJoyStick.setRumble(RumbleType.kRightRumble, 1);
+       // Timer.delay(1);
+       // Robot.m_oi.driveJoyStick.setRumble(RumbleType.kRightRumble, 0);
       }
     } else if(solenoid == 4) {
       Robot.gamer.ws = m_vals;
@@ -61,6 +77,10 @@ public class PneumaticsToggleCommand extends Command {
         Robot.pneumaticsController.solenoidOn(4);
       } else {
         Robot.pneumaticsController.solenoidOff(4);
+      //  Timer.delay(0.75);
+      //  Robot.m_oi.driveJoyStick.setRumble(RumbleType.kRightRumble, 1);
+        //Timer.delay(1);
+        //Robot.m_oi.driveJoyStick.setRumble(RumbleType.kRightRumble, 0);
       }
       Robot.gamer.addACycle();
     }

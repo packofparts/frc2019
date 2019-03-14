@@ -46,7 +46,7 @@ public class DriveByCommand extends Command {
   protected void initialize() {
     Robot.driver.treads.setSafetyEnabled(false);
   //  Robot.driver.resetGyro();
-    startingDistance = Robot.driver.getEncoderRight();
+    startingDistance = Robot.driver.getEncoderLeft();
     m_targetDistance = m_Distance + startingDistance;
   }
 
@@ -54,7 +54,7 @@ public class DriveByCommand extends Command {
   protected void execute() {
     is_Finished = false;
   //  System.out.print("hi shrimp flamingos oo oo oo if you're multi colored thats cool too, you dount need to change, its boring being the same Flamingo ooooo yash is cool");
-    double m_currentDistance = Robot.driver.getEncoderRight();
+    double m_currentDistance = Robot.driver.getEncoderLeft();
     double m_speed = ((m_targetDistance-m_currentDistance)/m_Distance)+0.3;
     if (m_speed > max_speed) {
       m_speed = max_speed;
