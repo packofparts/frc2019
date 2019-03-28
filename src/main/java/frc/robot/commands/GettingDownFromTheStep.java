@@ -26,13 +26,15 @@ public class GettingDownFromTheStep extends CommandGroup {
     // these will run in order.
 //addSequential(new DriveByCommand(1));
     addSequential(new PneumaticsToggleCommand(3, true));
-    addSequential(new DelayCommand(1)); 
-    addSequential(new DriveByCommand(-1.99166, 0.5));//9 was 7[]
     addSequential(new DelayCommand(0.5)); 
+    addSequential(new DriveByCommand(-1.89166, 0.5));
+
+    //addSequential(new DelayCommand(0.5))+; 
     addSequential(new PneumaticsToggleCommand(3, false));
-    addSequential(new DelayCommand(0.75)); 
+    addSequential(new DelayCommand(0.5)); 
+    //addSequential(new DelayCommand(0.75)); 
     //BEGIN DEBUG (RUMBLE THE CONTROLLER WHEN BACK STRUT GOES BACK UP ON AUTON)
-    //addSequential(new RumbleCommand());
+    //addSequential(new RumbleCommand(1, "drive"));
     //addSequential(new MMMDriveCommandTest(5));
     addSequential(new DriveByCommand(-1.5, 1));
 

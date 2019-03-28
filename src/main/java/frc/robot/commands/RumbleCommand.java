@@ -16,29 +16,53 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.Robot;
 
 public class RumbleCommand extends Command {
-  public RumbleCommand() {
+  double m_mmmmmmmmmmmmmmmmmmmmmmm;
+  Timer m_time;
+  String m_controller;
+  Boolean areWeFinished = false;
+  public RumbleCommand(double mmmmmmmmmmmmmmmmmmmmmmm, String controller) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    this.m_mmmmmmmmmmmmmmmmmmmmmmm = mmmmmmmmmmmmmmmmmmmmmmm;
+    this.m_controller = controller;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    m_time = new Timer();
+    m_time.reset();
+    m_time.start();
+    areWeFinished =  false;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_oi.driveJoyStick.setRumble(RumbleType.kRightRumble, 1);
-    Timer.delay(1);
-    Robot.m_oi.driveJoyStick.setRumble(RumbleType.kRightRumble, 0);
+    System.out.println(m_time.get());
+    if (m_controller == "drive") {
+      Robot.m_oi.driveJoyStick.setRumble(RumbleType.kRightRumble, 1);
+      if(m_time.get() > m_mmmmmmmmmmmmmmmmmmmmmmm) {
+        Robot.m_oi.driveJoyStick.setRumble(RumbleType.kRightRumble, 0);
+        areWeFinished = true;
+      }
+    }
+    else if (m_controller == "game") {
+      Robot.m_oi.gameJoyStick.setRumble(RumbleType.kRightRumble, 1);
+      if(m_time.get() > m_mmmmmmmmmmmmmmmmmmmmmmm) {
+        Robot.m_oi.gameJoyStick.setRumble(RumbleType.kRightRumble, 0);
+        areWeFinished = true;
+      }
+    } else {
+      throw new SecurityException("You made a typo. You are fired! GET OUT!");
+    }
 
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return areWeFinished;
   }
 
   // Called once after isFinished returns true

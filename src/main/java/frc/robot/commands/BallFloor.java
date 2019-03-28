@@ -15,7 +15,7 @@ public class BallFloor extends CommandGroup {
    */
   public BallFloor() {    
     addParallel(new ElevatorMoveCommand(-250.0));
-    addParallel(new PneumaticsToggleCommand(4, false));
+   // addParallel(new PneumaticsToggleCommand(4, false));
     addParallel(new PneumaticsToggleCommand(2, true));
 
     // Add Commands here:

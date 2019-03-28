@@ -15,7 +15,7 @@ public class HatchLVL2 extends CommandGroup {
    */
   public HatchLVL2() {
     addParallel(new ElevatorMoveCommand(-26000.0));
-    addParallel(new PneumaticsToggleCommand(4, true));
+    //addParallel(new PneumaticsToggleCommand(4, true));
     addParallel(new PneumaticsToggleCommand(2, true));
 
     // Add Commands here:

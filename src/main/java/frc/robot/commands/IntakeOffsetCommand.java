@@ -13,11 +13,13 @@ import frc.robot.Robot;
 public class IntakeOffsetCommand extends Command {
   public double m_offset;
   public boolean isOffsetting;
+  
   public IntakeOffsetCommand(double offset) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    this.isOffsetting = false;
+    this.isOffsetting = true;
     m_offset = offset;
+    
   }
 
   // Called just before this Command runs the first time
@@ -36,10 +38,11 @@ public class IntakeOffsetCommand extends Command {
     else {
       Robot.m_oi.intakeOffset = m_offset;
     }  This is code for a toggle style system */
-
     if(Robot.m_oi.getGameTriggerDrive() > 0) {
       isOffsetting = true;
-    } else  if(Robot.m_oi.getGameTriggerDrive() < 0) {
+    } 
+    
+    else  if(Robot.m_oi.getGameTriggerDrive() < 0) {
       isOffsetting = false;
     }
     
@@ -52,6 +55,8 @@ public class IntakeOffsetCommand extends Command {
 
 
   }
+  
+
 
   // Make this return true when this Command no longer needs to run execute()
   @Override

@@ -19,6 +19,7 @@ public class UltrasonicSubsystem extends Subsystem {
   protected double longnumber;
   AnalogInput frontUltrasonic = new AnalogInput(3);
   AnalogInput rearUltrasonic = new AnalogInput(2);
+  AnalogInput pressureSensor = new AnalogInput(0);
   
   public UltrasonicSubsystem() {
     longnumber = 105.02223949561687610657684501447;
@@ -26,10 +27,13 @@ public class UltrasonicSubsystem extends Subsystem {
 
   @Override
   public void periodic() {
+    //for pneumatics -- 250*(Volatge/5)-25
     double frontDis = frontUltrasonic.getAverageVoltage()*longnumber;
     double rearDis = rearUltrasonic.getAverageVoltage()*longnumber;
+    double PSI = 250*(pressureSensor.getVoltage()/5)-25;
     SmartDashboard.putNumber("frontultrasonic/raw", frontDis);
     SmartDashboard.putNumber("rearultrasonic/raw", rearDis);
+    SmartDashboard.putNumber("pressureSensor/PSI", PSI);
 
     if (frontDis < 20) {
      // System.out.println("Rumbling");

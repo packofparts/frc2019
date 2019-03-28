@@ -38,6 +38,7 @@ import frc.robot.commands.BallLVL3;
 import frc.robot.commands.DriveByCommand;
 import frc.robot.commands.HonkCommand;
 import frc.robot.commands.PneumaticsToggleCommand;
+import frc.robot.commands.RumbleCommand;
 import frc.robot.commands.ToggleDriveCommand;
 import frc.robot.commands.ToggleDriveDirection;
 import frc.robot.commands.TurnByCommand;
@@ -55,7 +56,7 @@ public class GameSubsystem extends Subsystem {
   public int Cycles = 0;
   public double elevatoor;
   public static boolean fs = false;
-  public static boolean ws = false;
+  public static boolean marrissa = false;
   public static boolean bs = false;
   public static boolean as = false;
   public static boolean hs = false;
@@ -79,95 +80,66 @@ public class GameSubsystem extends Subsystem {
 
   @Override
   public void periodic() {
-
-  //  if (Mode == 2 || Mode == 3) {
-     //   elevatorDrive(elevatoor);
-        
-   // }
-
     if (Robot.m_oi.getDpadGame() == 0) {
-      Robot.m_oi.gameJoyStick.setRumble(RumbleType.kRightRumble, 1);
-      Timer.delay(0.25);  
-      Robot.m_oi.gameJoyStick.setRumble(RumbleType.kRightRumble, 0);
+      Scheduler.getInstance().add(new RumbleCommand(0.25, "game"));
       Mode = 3;
     }
     else if (Robot.m_oi.getDpadGame() == 90) {
-      Robot.m_oi.gameJoyStick.setRumble(RumbleType.kRightRumble, 1);
-      Timer.delay(0.25);  
-      Robot.m_oi.gameJoyStick.setRumble(RumbleType.kRightRumble, 0);
+      Scheduler.getInstance().add(new RumbleCommand(0.25, "game"));
       Mode = 1;
     }
     else if (Robot.m_oi.getDpadGame() == 180) {
-      Robot.m_oi.gameJoyStick.setRumble(RumbleType.kRightRumble, 1);
-      Timer.delay(0.25);  
-      Robot.m_oi.gameJoyStick.setRumble(RumbleType.kRightRumble, 0);
+      Scheduler.getInstance().add(new RumbleCommand(0.25, "game"));
       Mode = 2;
     }
    else if (Robot.m_oi.getDpadGame() == 270) {
-      Robot.m_oi.gameJoyStick.setRumble(RumbleType.kRightRumble, 1);
-      Timer.delay(0.25);  
-      Robot.m_oi.gameJoyStick.setRumble(RumbleType.kRightRumble, 0);
+      Scheduler.getInstance().add(new RumbleCommand(0.25, "game"));
       Mode = 4;
     }
 
     if (Mode == 1) {
-      //climb
+      //climb D-Pad Right
       if (Robot.m_oi.gameJoyStick.getAButtonPressed()) {
-        System.out.println("A mode 1");
+        //System.out.println("A mode 1");
         Scheduler.getInstance().add(new PneumaticsToggleCommand(1, !fs));
       }
       if (Robot.m_oi.gameJoyStick.getXButtonPressed()) {
-        System.out.println("X mode 1");
-        Scheduler.getInstance().add(new PneumaticsToggleCommand(2, !as));
+        //System.out.println("X mode 1");
+        Scheduler.getInstance().add(new PneumaticsToggleCommand(2, false));
+        Scheduler.getInstance().add(new ElevatorMoveCommand(-200));
       }
       if (Robot.m_oi.gameJoyStick.getBButtonPressed()) {
-        System.out.println("B mode 1");
+        //System.out.println("B mode 1");
         Scheduler.getInstance().add(new PneumaticsToggleCommand(3, !bs));
       }
-      if (Robot.m_oi.gameJoyStick.getYButtonPressed()) {
-        System.out.println("Y mode 1");
-        Scheduler.getInstance().add(new PneumaticsToggleCommand(1, !fs));
-        Scheduler.getInstance().add(new PneumaticsToggleCommand(3, !bs));
-      }
-      if (Robot.m_oi.gameJoyStick.getBumper(Hand.kRight)) {
-        System.out.println("Bumper mode 1");
-        Scheduler.getInstance().add(new PneumaticsToggleCommand(5, !hs));
-      }
-      while (Robot.m_oi.getGameTriggerDrive() != 0)
-      {
-      //  WPI_TalonSRX rearstrut = new WPI_TalonSRX(RobotMap.strutback);
-      //  rearstrut.set(-Robot.m_oi.getGameTriggerDrive());
-      }
+
+      intake.set(Robot.m_oi.intakeOffset);
     }
     else if (Mode == 3) {
-      //ball
+      //ball D-Pad Up
       if (Robot.m_oi.gameJoyStick.getAButtonPressed()) {
-        System.out.println("A mode 3");
+        //System.out.println("A mode 3");
         Scheduler.getInstance().add(new BallFloor());
       }
       if (Robot.m_oi.gameJoyStick.getBButtonPressed()) {
-        System.out.println("B mode 3");
+        //System.out.println("B mode 3");
         Scheduler.getInstance().add(new BallLVL1());
       }
       if (Robot.m_oi.gameJoyStick.getYButtonPressed()) {
-        System.out.println("Y mode 3");
+        //System.out.println("Y mode 3");
         Scheduler.getInstance().add(new BallLVL2());
       }
       if (Robot.m_oi.gameJoyStick.getXButtonPressed()) {
-        System.out.println("X mode 3");
+        //System.out.println("X mode 3");
         Scheduler.getInstance().add(new BallLVL3());
       }
       if (Robot.m_oi.gameJoyStick.getBumperPressed(Hand.kRight)) {
-        System.out.println("Right Bumper mode 3");
+        //System.out.println("Right Bumper mode 3");
         Scheduler.getInstance().add(new BallCargoShip());
       }
       if(Robot.m_oi.gameJoyStick.getBumperPressed(Hand.kLeft)) {
-        System.out.println("Left Bumper mode 3");
+        //System.out.println("Left Bumper mode 3");
         Scheduler.getInstance().add(new PneumaticsToggleCommand(2, !as));
-      }
-      if(Robot.m_oi.gameJoyStick.getStickButtonPressed(Hand.kLeft)) {
-        System.out.println("Left Stick Pressed");
-        Scheduler.getInstance().add(new PneumaticsToggleCommand(4, !ws));
       }
       if (Robot.m_oi.gameJoyStick.getY(Hand.kRight) != 0)
       {
@@ -178,64 +150,59 @@ public class GameSubsystem extends Subsystem {
       
     }
     else if (Mode == 2) {
-      //hatch
+      //hatch D-Pad Down
       if (Robot.m_oi.gameJoyStick.getAButtonPressed()) {
-        System.out.println("A mode 2");
-        Scheduler.getInstance().add(new HatchLVLFloor());
-      }
-      if (Robot.m_oi.gameJoyStick.getBButtonPressed()) {
-        System.out.println("B mode 2");
+        ////System.out.println("A mode 2");
         Scheduler.getInstance().add(new HatchLVL1());
       }
-      if (Robot.m_oi.gameJoyStick.getXButtonPressed()) {
-        System.out.println("X mode 2");
+      if (Robot.m_oi.gameJoyStick.getBButtonPressed()) {
+        ////System.out.println("B mode 2");
         Scheduler.getInstance().add(new HatchLVL2());
       }
       if (Robot.m_oi.gameJoyStick.getYButtonPressed()) {
-        System.out.println("Y mode 2");
+        ////System.out.println("Y mode 2");
         Scheduler.getInstance().add(new HatchLVL3());
       }
       if(Robot.m_oi.gameJoyStick.getBumperPressed(Hand.kLeft)) {
-        System.out.println("Left Bumper mode 3");
+        ////System.out.println("Left Bumper mode 3");
         Scheduler.getInstance().add(new PneumaticsToggleCommand(2, !as));
       }
-      if(Robot.m_oi.gameJoyStick.getStickButtonPressed(Hand.kLeft)) {
-        System.out.println("Left Stick Pressed");
-        Scheduler.getInstance().add(new PneumaticsToggleCommand(4, !ws));
+      if(Robot.m_oi.gameJoyStick.getBumperPressed(Hand.kRight)) {
+        System.out.println("Right Bumper mode 3");
+        Scheduler.getInstance().add(new PneumaticsToggleCommand(4, !marrissa));
+        System.out.println(getElevatorEncoder()+768);
+      //  Scheduler.getInstance().add(new ElevatorMoveCommand(getElevatorEncoder()+768));
       }
       if (Robot.m_oi.gameJoyStick.getY(Hand.kRight) != 0)
       {
         elevator.set(Robot.m_oi.gameJoyStick.getY(Hand.kRight));
       }
-      if (Robot.m_oi.getGameTriggerDrive() != 0)
-      {
-        intake.set(Robot.m_oi.getGameTriggerDrive());
-      }
+      intake.set(Robot.m_oi.intakeOffset);
     }
     else if (Mode == 4) 
     {
     //debug
     if (Robot.m_oi.gameJoyStick.getAButtonPressed()) {
-      System.out.println("A mode 4");
+      //System.out.println("A mode 4");
       Scheduler.getInstance().add(new PneumaticsToggleCommand(1, !fs));
     }
     if (Robot.m_oi.gameJoyStick.getXButtonPressed()) {
-      System.out.println("X mode 4");
+      //System.out.println("X mode 4");
     }
     if (Robot.m_oi.gameJoyStick.getBButtonPressed()) {
-      System.out.println("B mode 4");
+      //System.out.println("B mode 4");
       Scheduler.getInstance().add(new PneumaticsToggleCommand(3, !bs));
     }
     if (Robot.m_oi.gameJoyStick.getYButtonPressed()) {
-      System.out.println("Y mode 4");
+      //System.out.println("Y mode 4");
     }
     if(Robot.m_oi.gameJoyStick.getBumperPressed(Hand.kLeft)) {
-      System.out.println("Left Bumper mode 3");
+      //System.out.println("Left Bumper mode 3");
       Scheduler.getInstance().add(new PneumaticsToggleCommand(2, !as));
     }
-    if(Robot.m_oi.gameJoyStick.getStickButtonPressed(Hand.kLeft)) {
-      System.out.println("Left Stick Pressed");
-      Scheduler.getInstance().add(new PneumaticsToggleCommand(4, !ws));
+    if(Robot.m_oi.gameJoyStick.getBumperPressed(Hand.kRight)) {
+      //System.out.println("Left Stick Pressed");
+      Scheduler.getInstance().add(new PneumaticsToggleCommand(4, !marrissa));
     }
     if (Robot.m_oi.gameJoyStick.getY(Hand.kRight) != 0)
     {
@@ -249,14 +216,14 @@ public class GameSubsystem extends Subsystem {
   
   
   }
-   //System.out.println(rightRear.getSelectedSensorPosition(0));
+   ////System.out.println(rightRear.getSelectedSensorPosition(0));
   
   public double getElevatorEncoder(){
     return elevator.getSelectedSensorPosition();
   }
   
   public void elevatorDrive(double go){
-    elevator.set(go+0.2);
+    elevator.set(go-0.2);
   }
 
   public void stopE(){

@@ -64,16 +64,18 @@ public class PneumaticsToggleCommand extends Command {
       Robot.gamer.bs = m_vals;
       if(Robot.gamer.bs) {
         Robot.pneumaticsController.solenoidOn(3);
+       // Robot.m_oi.intakeOffset = 0.25;
       } else {
         Robot.pneumaticsController.solenoidOff(3);
+        //Robot.m_oi.intakeOffset = 0;
      //   Timer.delay(0.75);
       //  Robot.m_oi.driveJoyStick.setRumble(RumbleType.kRightRumble, 1);
        // Timer.delay(1);
        // Robot.m_oi.driveJoyStick.setRumble(RumbleType.kRightRumble, 0);
       }
     } else if(solenoid == 4) {
-      Robot.gamer.ws = m_vals;
-      if(Robot.gamer.ws) {
+      Robot.gamer.marrissa = m_vals;
+      if(Robot.gamer.marrissa) {
         Robot.pneumaticsController.solenoidOn(4);
       } else {
         Robot.pneumaticsController.solenoidOff(4);

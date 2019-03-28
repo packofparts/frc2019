@@ -25,6 +25,7 @@ import frc.robot.subsystems.GameSubsystem;
 import frc.robot.subsystems.PneumaticsSubsystem;
 import frc.robot.subsystems.UltrasonicSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
+import frc.robot.RobotMap;
 //import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -63,13 +64,19 @@ public class Robot extends TimedRobot {
   
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
-    SmartDashboard.putString("Drive/Comms/1", "90 days");
     SmartDashboard.putData("Reset Encoders", new ResetEncoders());
   }
 
   @Override
   public void robotPeriodic() {
     started = true;
+    
+    if (Robot.driver.pdp.getVoltage() < 12.5) {
+      SmartDashboard.putString("Drive/Comms/1", "My battery is low and it's getting dark...");
+    }
+    else {
+      SmartDashboard.putString("Drive/Comms/1", "90 days");
+    }
   }
 
   @Override
@@ -80,8 +87,11 @@ public class Robot extends TimedRobot {
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
     //System.out.println(started);
-    if (started) {
-      SmartDashboard.putString("Drive/Comms/1", "My battery is low and it's getting dark...");// HELP MEEEEEEEEEEEEEEEEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!! GETMEOUTGETMEOUTHGETMEOUTGETMEOUTGETMEOUTEGETMEOUTGETMEOUTGETMEOUTGETMEOUTLGETMEOUTGETMEOUTGETMEOUTLGETMEOUTLGETMEOUTGETMEOUTGETMEOUTGETMEOUTGETMEOUTOGETMEOUTGETMEOUTGETMEOUT!");
+    if (Robot.driver.pdp.getVoltage() < 12.5) {
+      SmartDashboard.putString("Drive/Comms/1", "My battery is low and it's getting dark...");
+    }
+    else {
+      SmartDashboard.putString("Drive/Comms/1", "90 days");
     }
     started = false;
   }

@@ -15,7 +15,7 @@ public class BallCargoShip extends CommandGroup {
    */
   public BallCargoShip() {
     addParallel(new ElevatorMoveCommand(-6100.0));
-    addParallel(new PneumaticsToggleCommand(4, false));
+   // addParallel(new PneumaticsToggleCommand(4, false));
     addParallel(new PneumaticsToggleCommand(2, true));
     // Add Commands here:
     // e.g. addSequential(new Command1());

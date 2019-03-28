@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DelayCommand extends Command {
   double delay;
+  Timer m_time;
+  boolean isFinished = false;
   public DelayCommand(double timeToDelay) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -21,18 +23,24 @@ public class DelayCommand extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    m_time = new Timer();
+    m_time.reset();
+    m_time.start();
+    isFinished = false;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Timer.delay(delay);
+    if(m_time.get() > delay) {
+      isFinished = true;
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return isFinished;
   }
 
   // Called once after isFinished returns true

@@ -35,7 +35,7 @@ public class OI {
   public boolean original = true;
   public XboxController driveJoyStick = new XboxController(0);
   public XboxController gameJoyStick = new XboxController(1);
-  public double intakeOffset = 0;
+  public double intakeOffset = 0.25;
 
   public OI() {
     //X button toggles drive command

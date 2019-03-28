@@ -45,7 +45,8 @@ public class DriveSubsystem extends Subsystem {
   private final AHRS navX;
 
   public boolean coastMode;
-/**
+  public boolean ramp;
+  /**
    * Add your docs here.
    */
   public DriveSubsystem() {
@@ -68,7 +69,7 @@ public class DriveSubsystem extends Subsystem {
 
     SpeedControllerGroup leftSide = new SpeedControllerGroup(leftFront, leftRear);
     SpeedControllerGroup rightSide = new SpeedControllerGroup(rightRear, rightFront);
-    
+    ramp = true;
     treads = new DifferentialDrive(leftSide, rightSide);
     
     leftFront.configOpenloopRamp(rampSeconds);
@@ -104,7 +105,8 @@ public void resetGyro() {
    // strutDrive();
 
     SmartDashboard.putNumber("Drive/Encoders/Encoder R", this.getEncoderRight());
-    SmartDashboard.putNumber("Drive/Encoders/Encoder L", this.getEncoderLeft());
+    //CHANGE
+    //SmartDashboard.putNumber("Drive/Encoders/Encoder L", this.getEncoderLeft());
     SmartDashboard.putNumber("Drive/Encoders/Encoder E", Robot.gamer.getElevatorEncoder());
     SmartDashboard.putNumber("Drive/Gyro/Angle", getHeading());
     float difference = Robot.driver.rightFront.getSelectedSensorVelocity() - Robot.driver.leftFront.getSelectedSensorVelocity();
@@ -114,7 +116,7 @@ public void resetGyro() {
     SmartDashboard.putNumber("PDP/Currents/12", pdp.getCurrent(12));
     SmartDashboard.putNumber("PDP/Currents/13", pdp.getCurrent(13));
     SmartDashboard.putNumber("PDP/Voltage", pdp.getVoltage());
-    SmartDashboard.putNumber("help/acme/kraken/cowpoop/Cycles", Robot.gamer.getCycles());
+    SmartDashboard.putNumber("Ligma/Cycles", Robot.gamer.getCycles());
     
     if (Robot.m_oi.getADrive() && Robot.m_oi.getLeftBumperDrive()){
     Scheduler.getInstance().add(new GettingDownFromTheStep());
@@ -122,10 +124,22 @@ public void resetGyro() {
     if (Robot.m_oi.getBDrive() && Robot.m_oi.getLeftBumperDrive()) {
       //Scheduler.getInstance().add(new GettingUpToLaSteppe());
     }
+    //Disable Ramp
+    if (Robot.m_oi.getRightBumperDrive() && ramp) {
+    leftFront.configOpenloopRamp(0);
+    leftRear.configOpenloopRamp(0);
+    rightFront.configOpenloopRamp(0);
+    rightRear.configOpenloopRamp(0);
+    ramp = false;
 
-   
-
-    //BEGIN THE DEBUG (TOGGLE BETWEEN BRAKE AND COAST WITH RIGHT BUMPER)
+  } else if (!Robot.m_oi.getRightBumperDrive() && !ramp) {
+    leftFront.configOpenloopRamp(rampSeconds);
+    leftRear.configOpenloopRamp(rampSeconds);
+    rightFront.configOpenloopRamp(rampSeconds);
+    rightRear.configOpenloopRamp(rampSeconds);
+    ramp = true;
+    
+  }
     //coastMode = false; (MOVE UP BECAUSE WE'RE IN PERIODIC AND WE DON'T WANT TO ALWAYS BE FALSE)
     //if (Robot.m_oi.driveJoyStick.getBumperPressed(Hand.kRight)) 
     //{
@@ -149,12 +163,14 @@ public void resetGyro() {
      // }
 
     //}
-    //END THE DEBUG
+
   }
    //System.out.println(rightRear.getSelectedSensorPosition(0));
 
   public double getEncoderLeft() {
-    return leftFront.getSelectedSensorPosition();
+    return 0;
+    //CHANGE 
+    //leftFront.getSelectedSensorPosition();
   }
   public double getEncoderRight() {
     return rightFront.getSelectedSensorPosition();
