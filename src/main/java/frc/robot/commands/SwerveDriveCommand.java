@@ -7,67 +7,63 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.Solenoid;
-import frc.robot.Robot;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.Robot;
 
-public class RumbleCommand extends Command {
-  double m_mmmmmmmmmmmmmmmmmmmmmmm;
-  Timer m_time;
-  String m_controller;
-  Boolean areWeFinished = false;
-  public RumbleCommand(double mmmmmmmmmmmmmmmmmmmmmmm, String controller) {
+public class SwerveDriveCommand extends Command {
+  
+  boolean arcadeDrive;
+  public SwerveDriveCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    this.m_mmmmmmmmmmmmmmmmmmmmmmm = mmmmmmmmmmmmmmmmmmmmmmm;
-    this.m_controller = controller;
+    requires(Robot.driver);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    m_time = new Timer();
-    m_time.reset();
-    m_time.start();
-    areWeFinished =  false;
+    Robot.driver.treads.setSafetyEnabled(false);
+    
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //System.out.println(m_time.get());
-    if (m_controller == "drive") {
-      Robot.m_oi.driveJoyStick.setRumble(RumbleType.kRightRumble, 1);
-      if(m_time.get() > m_mmmmmmmmmmmmmmmmmmmmmmm) {
-        Robot.m_oi.driveJoyStick.setRumble(RumbleType.kRightRumble, 0);
-        areWeFinished = true;
+    Timer.delay(0.1);
+    double forward = -Robot.m_oi.getRightYDrive();
+    double turn = -Robot.m_oi.getRightXDrive();
+    //Robot.driver.arcadeDrive(forward, turn);
+    System.out.println(Robot.m_oi.getDpad());
+    if(Robot.m_oi.getDpad() != -1) {
+      Timer.delay(1);
+      if(Robot.m_oi.getDpad() != -1) {
+        Turn(Robot.m_oi.getDpad());
       }
     }
-    else if (m_controller == "game") {
-      Robot.m_oi.gameJoyStick.setRumble(RumbleType.kRightRumble, 1);
-      if(m_time.get() > m_mmmmmmmmmmmmmmmmmmmmmmm) {
-        Robot.m_oi.gameJoyStick.setRumble(RumbleType.kRightRumble, 0);
-        areWeFinished = true;
-      }
-    } else {
-      throw new SecurityException("You made a typo. You are fired! GET OUT!");
-    }
-
+    //System.out.println("Arcade FTW");
   }
 
   // Make this return true when this Command no longer needs to run execute()
+  protected void Turn(int angle) {
+    if(angle <= 180) {
+      Scheduler.getInstance().add(new TurnByCommand(angle));
+    }
+    else {
+      Scheduler.getInstance().add(new TurnByCommand(angle-360));
+    }
+  }
+
   @Override
   protected boolean isFinished() {
-    return areWeFinished;
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+  Robot.driver.stop();
   }
 
   // Called when another command which requires one or more of the same

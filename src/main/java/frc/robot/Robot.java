@@ -33,7 +33,6 @@ public class Robot extends TimedRobot {
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static OI m_oi;
   
-  
   public static VisionSubsystem camera;
   public static final String ENCODER_PREFIX = "Drive/Encoders/";
   public static DriveSubsystem driver;
@@ -87,7 +86,7 @@ public class Robot extends TimedRobot {
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
     //System.out.println(started);
-    if (Robot.driver.pdp.getVoltage() < 12.5) {
+    if (Robot.driver.pdp.getVoltage() < 12) {
       SmartDashboard.putString("Drive/Comms/1", "My battery is low and it's getting dark...");
     }
     else {

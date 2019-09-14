@@ -20,14 +20,19 @@ public class TurnByCommand extends Command {
   private boolean m_heading = true;
   private double startingDegree = 0;
   private boolean is_Finished = false;
-  private double delta = 1;
+  private double echo = 2;
   boolean arcadeDrive;
 
   public TurnByCommand(double turnDegree) {//, boolean addheading) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     is_Finished = false;
-    m_turnDegree = turnDegree;
+    if(turnDegree >= 0) {    
+      m_turnDegree = turnDegree-echo;
+    }
+    else {
+      m_turnDegree = turnDegree+echo;
+    }
     requires(Robot.driver);
   }
 
@@ -48,19 +53,38 @@ public class TurnByCommand extends Command {
   @Override
   protected void execute() {
     is_Finished = false;
-    //System.out.print("hi shrimp flamingos oo oo oo if you're");
+    //System.out.print("hi shrimp flamingos oo oo oo if you're");4
     double m_currentDegree = Robot.driver.getHeading();
-    double m_speed = ((m_targetDegree-m_currentDegree)/m_turnDegree);
-    if (m_speed > 1.0) {
+    double m_speed = ((m_targetDegree-m_currentDegree+(m_turnDegree/12))/(m_turnDegree));
+    System.out.print(m_speed + " ");
+
+    if((m_targetDegree-m_currentDegree < 0 && m_turnDegree > 0)) {
+      if(m_speed > 0)
+        m_speed = -m_speed;
+      System.out.println("Reversed");
+    }
+    else if ((m_targetDegree-m_currentDegree > 0 && m_turnDegree < 0)) {
+      if(m_speed < 0)
+        m_speed = -m_speed;
+      System.out.println("Reversed");
+    }
+    if (m_speed > 1.0 && m_speed > 0) {
       m_speed = 1.0;
     }
-    if (m_speed < 0.5) {
+    else if (m_speed < 0.5 && m_speed > 0) {
       m_speed = 0.5;
     }
-    
+    else if (m_speed < -1.0 && m_speed < 0) {
+      m_speed = -1.0;
+    }
+    else if (m_speed > -0.5 && m_speed < 0) {
+      m_speed = -0.5;
+    }
+    System.out.println(m_speed);
+
     if (m_turnDegree > 0) {
       Robot.driver.arcadeDrive(0, -m_speed);
-      if(m_targetDegree-m_currentDegree > -delta && m_targetDegree-m_currentDegree < delta ) {
+      if(m_targetDegree-m_currentDegree > -echo && m_targetDegree-m_currentDegree < echo ) {
          Robot.driver.arcadeDrive(0, 0);
          Robot.driver.stop();
          is_Finished = true;
@@ -68,7 +92,7 @@ public class TurnByCommand extends Command {
       }
     else {
       Robot.driver.arcadeDrive(0, m_speed);
-      if(m_targetDegree-m_currentDegree > -delta && m_targetDegree-m_currentDegree < delta ) {
+      if(m_targetDegree-m_currentDegree > -echo && m_targetDegree-m_currentDegree < echo ) {
         Robot.driver.arcadeDrive(0, 0);
         Robot.driver.stop();
        is_Finished = true;
@@ -86,7 +110,7 @@ public class TurnByCommand extends Command {
   @Override
   protected void end() {
     Robot.driver.stop();
-    Scheduler.getInstance().add(new ChezyDriveCommand());
+    Scheduler.getInstance().add(new SwerveDriveCommand());
   }
 
   // Called when another command which requires one or more of the same

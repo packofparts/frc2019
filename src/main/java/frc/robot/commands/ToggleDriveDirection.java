@@ -27,7 +27,7 @@ public class ToggleDriveDirection extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Scheduler.getInstance().add(new TurnByCommand(170));
+    //Scheduler.getInstance().add(new TurnByCommand(170));
     Robot.driver.flipDrive();
   }
 

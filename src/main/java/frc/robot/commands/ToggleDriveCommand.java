@@ -44,7 +44,7 @@ public class ToggleDriveCommand extends Command {
       isDone = true;
     }  
    else if(Robot.m_oi.getDpad() == 180) {
-    Scheduler.getInstance().add(new ForzaDriveCommand());
+    Scheduler.getInstance().add(new SwerveDriveCommand());
     isDone = true;
     }  
    else if(Robot.m_oi.getDpad() == 270) {

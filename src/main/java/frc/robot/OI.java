@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 //import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AbortCommand;
 import frc.robot.commands.DriveByCommand;
 import frc.robot.commands.GettingDownFromTheStep;
@@ -39,9 +40,9 @@ public class OI {
 
   public OI() {
     //X button toggles drive command
-    //JoystickButton driveXButton = new JoystickButton(driveJoyStick, 3);
-    //driveXButton.toggleWhenActive(new ToggleDriveCommand());
-    //driveXButton.close();
+    JoystickButton driveXButton = new JoystickButton(driveJoyStick, 3);
+    driveXButton.toggleWhenActive(new ToggleDriveCommand());
+    driveXButton.close();
 
     //JoystickButton driveMenuButton = new JoystickButton(driveJoyStick, 8);
     //driveMenuButton.toggleWhenActive(new testingCommandGroup());
@@ -74,18 +75,18 @@ public class OI {
    // honkButton.toggleWhenActive(new HonkCommand());
    // honkButton.close();
 
-    //Y button toggles drive direction
-    //JoystickButton driveYButton = new JoystickButton(driveJoyStick, 4);
-    //driveYButton.toggleWhenActive(new ToggleDriveDirection());
-    //driveYButton.close();
+   //Y button toggles drive direction
+   JoystickButton driveYButton = new JoystickButton(driveJoyStick, 4);
+   driveYButton.toggleWhenActive(new ToggleDriveDirection());
+   driveYButton.close();
 
-    //JoystickButton leftBumper = new JoystickButton(driveJoyStick, 5);
- //   leftBumper.whenPressed(new TurnByCommand(-80));
-    //leftBumper.close();
+  JoystickButton leftBumper = new JoystickButton(driveJoyStick, 5);
+  leftBumper.whenPressed(new TurnByCommand(-90));
+  leftBumper.close();
 
-    //JoystickButton rightBumper = new JoystickButton(driveJoyStick, 6);
-  //  rightBumper.whenPressed(new TurnByCommand(80));
-    //rightBumper.close();
+  JoystickButton rightBumper = new JoystickButton(driveJoyStick, 6);
+  rightBumper.whenPressed(new TurnByCommand(90));
+  rightBumper.close();
 
   /*  if(original) {
       JoystickButton mmmtasty = new JoystickButton(gameJoyStick, 7);

@@ -43,9 +43,8 @@ public class VisionSubsystem extends Subsystem {
 
   @Override
   public void periodic() {
-  //  cvSink.grabFrame(source);
-  //  Imgproc.cvtColor(source, output, Imgproc.COLOR_BGR2GRAY);
-  //  outputStream.putFrame(output);
-  }
-  
+    cvSink.grabFrame(source);
+    Imgproc.cvtColor(source, output, Imgproc.COLOR_BGR2GRAY);
+    outputStream.putFrame(output);
+  } 
 }
